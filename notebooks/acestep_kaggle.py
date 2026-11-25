@@ -53,3 +53,9 @@ Path("/kaggle/working/ACE-Step-1.5/gen.py").write_text(gen)
 # Kaggle exports MPLBACKEND=matplotlib_inline, which the isolated venv lacks
 !MPLBACKEND=Agg uv run python gen.py
 !ls -la /kaggle/working/music
+
+# %%
+# Download BEFORE stopping the session (with "No persistence", /kaggle/working is wiped on stop)
+!cd /kaggle/working && zip -qr music.zip music && ls -la music.zip
+from IPython.display import FileLink
+FileLink("music.zip")

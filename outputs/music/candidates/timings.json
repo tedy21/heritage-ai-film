@@ -1,0 +1,65 @@
+[
+  {
+    "stage": "music",
+    "item": "cand_301",
+    "provider": "kaggle-t4",
+    "model": "ACE-Step 1.5 turbo + lm-0.6B",
+    "seed": 301,
+    "params": {
+      "caption": "instrumental, calm Ethiopian-inspired cinematic underscore, soft krar-like plucked strings, warm low strings pad, gentle washint-like flute in the pauses, sparse, reverent, spacious, no drums, no vocals",
+      "bpm": 66,
+      "key": "D minor",
+      "duration": 85
+    },
+    "status": "ok",
+    "error": null,
+    "latency_s": 11.0,
+    "gpu_s": 11.0,
+    "outputs": [
+      "outputs/music/candidates/cand_301.flac"
+    ],
+    "kaggle_path": "/kaggle/working/music/d56b6e39-cd98-2938-eb80-e6a1013c0dbc.flac"
+  },
+  {
+    "stage": "music",
+    "item": "cand_302",
+    "provider": "kaggle-t4",
+    "model": "ACE-Step 1.5 turbo + lm-0.6B",
+    "seed": 302,
+    "params": {
+      "caption": "instrumental, calm Ethiopian-inspired cinematic underscore, soft krar-like plucked strings, warm low strings pad, gentle washint-like flute in the pauses, sparse, reverent, spacious, no drums, no vocals",
+      "bpm": 66,
+      "key": "D minor",
+      "duration": 85
+    },
+    "status": "ok",
+    "error": null,
+    "latency_s": 8.0,
+    "gpu_s": 8.0,
+    "outputs": [
+      "outputs/music/candidates/cand_302.flac"
+    ],
+    "kaggle_path": "/kaggle/working/music/cea06522-f0cd-2080-18ca-8b68939a82a5.flac"
+  },
+  {
+    "stage": "music",
+    "item": "cand_303",
+    "provider": "kaggle-t4",
+    "model": "ACE-Step 1.5 turbo + lm-0.6B",
+    "seed": 303,
+    "params": {
+      "caption": "instrumental, calm Ethiopian-inspired cinematic underscore, soft krar-like plucked strings, warm low strings pad, gentle washint-like flute in the pauses, sparse, reverent, spacious, no drums, no vocals",
+      "bpm": 66,
+      "key": "D minor",
+      "duration": 85
+    },
+    "status": "ok",
+    "error": null,
+    "latency_s": 8.0,
+    "gpu_s": 8.0,
+    "outputs": [
+      "outputs/music/candidates/cand_303.flac"
+    ],
+    "kaggle_path": "/kaggle/working/music/b98217ee-25a9-4d5b-5750-b300054b6aa2.flac"
+  }
+]

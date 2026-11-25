@@ -45,3 +45,9 @@ Format: **symptom → cause → what I tried → fix / workaround → evidence**
 - **Cause:** Kaggle exports `MPLBACKEND` for its notebook UI. The `uv run` child process inherits it, but ACE-Step's isolated `.venv` has no `matplotlib_inline`.
 - **Fix:** `MPLBACKEND=Agg uv run python gen.py`, which overrides the variable for that one command (Agg = headless, file-only rendering).
 - **Lesson:** isolated environments still inherit environment variables from the parent process.
+
+### F10. Generated music lost when the Kaggle session stopped (25 Nov)
+- **Symptom:** after stopping the session, `/kaggle/working` showed no files; the 3 ACE-Step candidates (seeds 301–303, ~8 s GPU each) could not be downloaded.
+- **Cause:** the notebook's Persistence was "No persistence", so `/kaggle/working` is wiped when the session ends. Outputs can only be downloaded from a running session or a saved version.
+- **Fix:** set Persistence to "Files only"; zip the results and download them with `FileLink` *before* stopping; regenerate with the **same seeds**, which is why seeds are logged.
+- **Lesson:** treat cloud GPU sessions as disposable; copy outputs off the machine as the last step of every run.
