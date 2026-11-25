@@ -137,7 +137,7 @@ def cached_path(stage: str, name: str, key: str, ext: str) -> Path:
 def prune(stage: str, name: str, keep: Path) -> None:
     """Remove superseded cache entries for the same item (keeps outputs/ tidy)."""
     for p in (OUT / stage).glob(f"{name}-*"):
-        if p != keep and p.is_file():
+        if p.stem != keep.stem and p.is_file():  # keep e.g. <file>.json sidecars
             p.unlink()
 
 

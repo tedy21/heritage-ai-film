@@ -1,0 +1,47 @@
+{
+  "s01": {
+    "path": "outputs/narration/s01-d5adbdf7afcb847d.wav",
+    "duration_s": 5.44,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s02": {
+    "path": "outputs/narration/s02-51d19f3306bb0d0d.wav",
+    "duration_s": 5.923,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s03": {
+    "path": "outputs/narration/s03-22d7e29f5c22422e.wav",
+    "duration_s": 5.139,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s04": {
+    "path": "outputs/narration/s04-c2d082e37de77cf4.wav",
+    "duration_s": 7.244,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s05": {
+    "path": "outputs/narration/s05-fb84d9715a0725d2.wav",
+    "duration_s": 4.157,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s06": {
+    "path": "outputs/narration/s06-fae18002b2710b7f.wav",
+    "duration_s": 5.579,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s07": {
+    "path": "outputs/narration/s07-0941a582e38d291b.wav",
+    "duration_s": 5.994,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s08": {
+    "path": "outputs/narration/s08-b17c5e3a328d64d9.wav",
+    "duration_s": 4.692,
+    "model": "gemini-3.8-flash-tts"
+  },
+  "s09": {
+    "path": "outputs/narration/s09-13b5d851c4bd752b.wav",
+    "duration_s": 5.328,
+    "model": "gemini-3.8-flash-tts"
+  }
+}

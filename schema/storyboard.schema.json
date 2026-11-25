@@ -42,7 +42,11 @@
           "additionalProperties": false,
           "properties": {
             "voice": {"type": "string", "description": "Gemini prebuilt voice name"},
-            "style": {"type": "string", "description": "Plain-language delivery instruction"}
+            "style": {"type": "string", "description": "Optional delivery instruction prepended to the spoken text. WARNING: TTS models speak it aloud (FAILURES F15); keep empty unless tested"},
+            "max_pause_s": {"type": "number", "minimum": 0.2, "maximum": 2, "description": "Internal pauses longer than this are shortened to it"},
+            "tempo": {"type": "number", "minimum": 0.8, "maximum": 1.4, "description": "Pitch-preserving speed change applied after TTS (1.0 = none)"},
+            "batch_min": {"type": "integer", "minimum": 2, "description": "If at least this many lines need generating, use one batched TTS request"},
+            "min_interval_s": {"type": "number", "minimum": 0, "maximum": 60, "description": "Minimum seconds between TTS calls (free-tier rate limit)"}
           }
         },
         "end_card": {"type": "array", "items": {"type": "string"}, "minItems": 1}
@@ -121,7 +125,8 @@
               "id": {"type": "string"},
               "from_shot": {"type": "string", "pattern": "^s[0-9]{2}$"},
               "to_shot": {"type": "string", "pattern": "^s[0-9]{2}$"},
-              "intent": {"type": "string"}
+              "intent": {"type": "string"},
+              "gain_db": {"type": "number", "minimum": -18, "maximum": 6, "description": "Score level for this cue relative to music.volume_db (ramped between cues)"}
             }
           }
         }

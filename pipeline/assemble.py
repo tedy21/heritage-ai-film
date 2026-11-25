@@ -22,6 +22,7 @@ from . import subtitles, timeline
 from .common import (OUT, ROOT, STAGE_VERSION, Call, duration, ffmpeg, file_hash, load_env,
                      load_storyboard, log_cache_hit, log_event, run, stable_hash)
 from .music import music_track
+from . import spotting
 
 TARGET_LUFS, TARGET_TP, TARGET_LRA = -14.0, -1.0, 11.0
 
@@ -36,8 +37,9 @@ def build_mix(sb: dict, tl: dict, music: Path) -> Path:
     narr = [(ROOT / s["narration"], s["narration_start"]) for s in tl["shots"] if s["narration"]]
     duck = {"threshold": 0.02, "ratio": 6, "attack_ms": 300, "release_ms": 1500, **sb["music"].get("ducking", {})}
     total = tl["total"]
+    shape = spotting.cue_gain_expr(sb, tl)
     key = stable_hash(STAGE_VERSION["assemble"], [(p, o) for p, o in narr], music, duck,
-                      sb["music"]["volume_db"], total, TARGET_LUFS)
+                      sb["music"]["volume_db"], total, TARGET_LUFS, shape)
     out = _cached("mix", key, "wav")
     call = Call("assemble", "mix", "ffmpeg", "sidechaincompress+loudnorm",
                 {"ducking": duck, "music_db": sb["music"]["volume_db"], "target_lufs": TARGET_LUFS})
@@ -52,14 +54,15 @@ def build_mix(sb: dict, tl: dict, music: Path) -> Path:
         chains.append(f"[{i}:a]aformat=sample_rates=48000:channel_layouts=stereo,adelay={ms}:all=1[n{i}]")
     n = len(narr)
     args += ["-stream_loop", "-1", "-i", str(music)]
-    fade_out = max(total - 3.0, 0)
+    fade_out = max(tl["end_card_start"] - 0.5, 0)  # fade the score across the end card
     fc = ";".join(chains + [
         "".join(f"[n{i}]" for i in range(n)) + f"amix=inputs={n}:normalize=0:dropout_transition=0,"
         f"apad=whole_dur={total},atrim=0:{total}[narr]",
         "[narr]asplit=2[nmix][nkey]",
         f"[{n}:a]aformat=sample_rates=48000:channel_layouts=stereo,atrim=0:{total},asetpts=N/SR/TB,"
         f"loudnorm=I=-20:TP=-3,volume={sb['music']['volume_db']}dB,"
-        f"afade=t=in:st=0:d=2,afade=t=out:st={fade_out:.2f}:d=3[mus]",
+        + (f"volume='{shape}':eval=frame," if shape else "") +
+        f"afade=t=in:st=0:d=1,afade=t=out:st={fade_out:.2f}:d={total - fade_out:.2f}[mus]",
         f"[mus][nkey]sidechaincompress=threshold={duck['threshold']}:ratio={duck['ratio']}:"
         f"attack={duck['attack_ms']}:release={duck['release_ms']}[ducked]",
         "[nmix][ducked]amix=inputs=2:normalize=0:duration=first[pre]",
@@ -115,21 +118,26 @@ def export(sb: dict, tl: dict, aspect: str, mix: Path, srt: Path, segments: list
     return final
 
 
-def radio_cut(sb: dict, tl: dict, mix: Path, srt: Path) -> Path:
-    """Narration + temp music over black, with subtitles so non-Amharic testers can follow."""
-    segs = []
+def _black(sb: dict, tl: dict) -> Path:
     w, h = shots_mod.ASPECTS["16x9"]
-    black = OUT / "final" / ".black.mp4"
-    ffmpeg("-f", "lavfi", "-i", f"color=c=black:s={w}x{h}:d={tl['total']}:r={sb['meta']['fps']}",
-           "-c:v", "libx264", "-preset", "veryfast", "-crf", "30", "-pix_fmt", "yuv420p", str(black))
-    segs.append(black)
-    return export(sb, tl, "16x9", mix, srt, segs, "radio_cut")
+    black = OUT / "final" / f".black-{tl['total']}.mp4"
+    if not black.exists():
+        ffmpeg("-f", "lavfi", "-i", f"color=c=black:s={w}x{h}:d={tl['total']}:r={sb['meta']['fps']}",
+               "-c:v", "libx264", "-preset", "veryfast", "-crf", "30", "-pix_fmt", "yuv420p", str(black))
+    return black
+
+
+def radio_cut(sb: dict, tl: dict, mix: Path, srt: Path) -> Path:
+    """Narration + music over black, with subtitles so non-Amharic testers can follow."""
+    return export(sb, tl, "16x9", mix, srt, [_black(sb, tl)], "radio_cut")
 
 
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--radio", action="store_true", help="narration-only radio cut on black")
     ap.add_argument("--aspects", default="16x9,9x16")
+    ap.add_argument("--audition", action="store_true",
+                    help="radio cut once per candidate in outputs/music/candidates, to choose the score under the voice")
     a = ap.parse_args()
     load_env()
     sb = load_storyboard()
@@ -138,8 +146,18 @@ def main() -> None:
     print(f"assemble: total {tl['total']:.1f}s ({len(tl['shots'])} shots + end card)")
     if not 60 <= tl["total"] <= 90:
         print(f"  WARNING: total {tl['total']:.1f}s is outside the 60-90 s brief")
-    music = music_track(sb)
+    spotting.write_notes(sb, tl)
     srt = subtitles.build_srt(sb, tl)
+    if a.audition:
+        cands = sorted((ROOT / "outputs" / "music" / "candidates").glob("*.flac"))
+        if not cands:
+            raise SystemExit("no candidates in outputs/music/candidates")
+        for c in cands:
+            mix = build_mix(sb, tl, c)
+            out = export(sb, tl, "16x9", mix, srt, [_black(sb, tl)], f"audition_{c.stem}")
+            print("  ->", out.relative_to(ROOT))
+        return
+    music = music_track(sb)
     mix = build_mix(sb, tl, music)
     if a.radio:
         print("  ->", radio_cut(sb, tl, mix, srt).relative_to(ROOT))

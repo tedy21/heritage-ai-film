@@ -41,6 +41,20 @@ _TODO (user, 2–3 sentences): your personal or family connection to Lake Tana. 
 | s08 | present | Young woman before the paintings | Hand-over to today's youth (the audience) |
 | s09 | present | Sunset over the lake | Echo of the opening; title line + call to action |
 
+## Music spotting (after the radio cut gave real timing)
+Following the professional order: watch/listen to the cut, spot cues with timecodes, then choose and shape the score. The notes are generated from the measured narration (`make spotting` → `outputs/music/spotting_notes.md`):
+
+Film length 01:20.42 incl. 3.5s end card. Score: `temp pad (no score chosen yet)`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
+
+| Cue | In | Out | Length | Shots | Gain | What it should do |
+|---|---|---|---|---|---|---|
+| m1 | 00:00.00 | 00:16.00 | 16.0s | s01–s02 | -3 dB | Open quietly with the dawn; sparse plucked notes, sense of space. |
+| m2 | 00:16.00 | 00:40.92 | 24.9s | s03–s05 | +0 dB | Discovery and wonder as the monasteries appear; strings pad enters. |
+| m3 | 00:40.92 | 00:58.92 | 18.0s | s06–s07 | -4 dB | Weight of history and hardship; lower, darker, slower. |
+| m4 | 00:58.92 | 01:16.92 | 18.0s | s08–s09 | +2 dB | Hope and handover; the opening motif returns, warmer, then resolves. |
+
+The chosen ACE-Step track is shaped per cue (`gain_db`, 1.5 s ramps) and ducked under the voice. Candidates are auditioned **under the narration** (`make audition`), not on their own.
+
 ## User test 1 — radio cut (narration + temp music on black)
 _Date / where:_ · _People (≥3, from the audience; first names or roles only):_
 

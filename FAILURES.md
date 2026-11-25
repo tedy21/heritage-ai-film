@@ -62,3 +62,36 @@ Format: **symptom → cause → what I tried → fix / workaround → evidence**
 - **Symptom:** HTTP 503 UNAVAILABLE on 3 attempts in two separate runs (`smoke1`, `smoke2`); the retry/backoff worked as designed but the spike outlasted it.
 - **Workaround:** switched `meta.models.text` to `gemini-3.5-flash`, which answered in 2.0 s (correct Amharic "ሐይቅ" for "lake"). Text is only used for drafting/translation help, so no film output depends on the 3.8 text model. TTS (`gemini-3.8-flash-tts`) was unaffected.
 - **Lesson:** keep the model id in the storyboard, not the code, so swapping models is a one-line contract change.
+
+### F13. Gemini TTS free tier: 10 requests per model per day (25 Nov, radio cut)
+- **Symptom:** HTTP 429 on `gemini-3.8-flash-tts` from the 6th line of the second narration run; quota details: `GenerateRequestsPerDayPerProjectPerModel-FreeTier limit 10`, `retryDelay 2781s` (resets at midnight Pacific ≈ 11:00 EAT).
+- **What happened next:** the fallback chain kept the run going. s01–s04, s06, s07 came from `gemini-3.8-flash-lite-tts` and s08 from `gemini-2.5-flash-preview-tts`, so the radio cut mixed **three voice models**. A DNS outage mid-run (`Temporary failure in name resolution`) was also retried and survived.
+- **Fix:** **batched narration** (`narration.batch_generate`): the whole script goes in ONE request with 2 s pauses between lines, split at the n−1 longest silences (validated against expected line lengths; falls back to per-line if the split looks wrong). 1 request instead of 9 per full narration, and one consistent voice. Editing a single line later still costs one request. Tested on synthetic audio in `tests/test_batch_split.py`.
+- **Lesson:** read the quota *details* in a 429, not just the status code; per-day per-model limits change the architecture, not just the retry policy.
+
+### F14. Narration far too long: 155 s for 98 words (25 Nov, radio cut v1)
+- **Symptom:** the radio cut came out at 172 s (brief: 60–90 s). Single lines of 10–12 words took 18–22 s.
+- **Diagnosis:** Gemini transcription of the audio showed the model was *not* reading the style instruction aloud; it was speaking very slowly with 1–1.5 s pauses. The instruction "calm, warm, unhurried… with reverence and short pauses" was over-applied, and pace varied between requests (s03: 10 words in 7.9 s; s04: 11 words in 19.8 s).
+- **Tried:** (1) instruction asking for a "natural steady speaking pace (not slow)" + (2) capping internal pauses at 0.45 s in post → total 112.9 s, still too long and still uneven (7–19 s per line).
+- **Resolved (radio3):** the real cause was F15 (the instruction was spoken). Text-only batched narration: 48.6 s of narration, 79.5 s film.
+
+### F15. The TTS model read the English style instruction aloud (25 Nov, found by the user listening)
+- **Symptom:** in the radio cut, every line began with spoken English like "Say the following in Amharic…". It was found by **listening**, not by my automated check: the transcription prompt asked for "the language spoken" and silently dropped the English.
+- **Cause:** I prompted a TTS model like a chat model. Gemini TTS speaks the text it is given; an instruction prefix is often spoken rather than obeyed. This also explains most of F14's length (s04: 19.8 s with the instruction → **7.9 s** text-only, same voice family).
+- **Tried:** moving the style into `systemInstruction` → **HTTP 500** (not supported by the TTS model).
+- **Fix:** send only the Amharic text (`narration_voice.style` is now empty; the schema warns about it); tone comes from the voice choice. The batch request is just the lines separated by blank lines.
+- **Lesson:** verify generated media with a check that asks the right question ("is ANY English spoken?"), and with a human listener. The automated check had a blind spot exactly where the bug was.
+
+### F16. Click at the very start of the narration (25 Nov, found by the user listening)
+- **Symptom:** a glitch at the start of the film. Measured: the first narration clip (s01) began with a ~0.1 s spike peaking at −6 dB before the speech, and batch-cut clips started and stopped abruptly.
+- **Cause:** the edge trim treated any sound above −50 dB as speech, so a TTS start click was kept; cut points had no fades.
+- **Fix:** edge trimming now ignores sounds shorter than 80 ms (`start_duration=0.08`, peak detection), and every clip gets a 20 ms fade-in / 60 ms fade-out. The first word now comes at 1.5 s, after a 1 s music fade-in. Measured after the fix: the first 0.1 s of s01 is at −39 dB (fade), then speech.
+
+### F17. "No sound" for the last ~7 s (25 Nov, found by the user listening)
+- **Symptom:** from ~1:12 to the end (1:20) the film felt silent.
+- **Measured:** not silent. After the last line ended (72.7 s) only the ducked, cue-shaped score played at −20 to −28 dB RMS, fading out over 3 s; next to a −15 dB voice it read as dead air.
+- **Fix:** an **outro swell**: when the last line ends, the score rises +4 dB over 3 s and carries the ending, then fades out across the end card. Measured after: −14 to −19 dB until the end card, a fade to −53 dB at 80 s.
+
+### Design change prompted by F16: the narration cache was split into raw and processed
+- **Problem:** the processing settings (fades, trimming) were part of the same cache key as the TTS request, so fixing a click would have spent new TTS quota (10/day, F13).
+- **Change:** `outputs/narration/raw/` holds model output, keyed by text, voice and model chain; `outputs/narration/` holds processed audio, keyed by the raw file bytes and the processing settings. The existing lines were migrated into the raw layer. Result for the F16/F17 rebuild (`fix5`): **0 API calls**, 9 lines reprocessed by FFmpeg.

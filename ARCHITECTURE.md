@@ -43,7 +43,8 @@ Every artefact is named `<item>-<key>.<ext>`, where `key = sha256(stage version,
 
 | Artefact | Key inputs |
 |---|---|
-| narration WAV | text, voice, style instruction, TTS model |
+| narration **raw** WAV (costs a TTS request) | text, voice name, style, the whole TTS model chain |
+| narration **processed** WAV (free, FFmpeg) | raw file bytes + processing settings (click trim, pause cap, fades, tempo, loudness) |
 | reference image | prompt + style block, seed, model |
 | keyframe | prompt + style/reconstruction block, seed, model, **bytes** of the reference images |
 | segment | **bytes** of keyframe or clip, camera move, length, overlays, aspect, fps |
@@ -72,7 +73,7 @@ Old entries for the same item are pruned so `outputs/` holds only the current ve
 `make costs` aggregates it per stage for COSTS.md.
 
 ## Audio chain
-narration WAVs (trimmed, normalised to -18 LUFS each) placed at `shot start + 0.6 s` → music (pre-levelled to -20 LUFS, `volume_db`, 2 s fade-in, 3 s fade-out) → `sidechaincompress` keyed by the narration (threshold 0.02, ratio 6, attack 300 ms, release 1500 ms) → sum → **two-pass `loudnorm`** to -14 LUFS integrated, -1 dBTP.
+narration WAVs (click-safe edge trim, 20/60 ms fades, normalised to −18 LUFS each) placed at `shot start + 0.6 s` (first line: + 1.5 s) → music (pre-levelled to -20 LUFS, `volume_db`, 1 s fade-in, fade-out across the end card) → **outro swell** (+4 dB once the last line ends) → per-cue gain curve from the spotting notes (`spotting.cue_gain_expr`, 1.5 s ramps) → `sidechaincompress` keyed by the narration (threshold 0.02, ratio 6, attack 300 ms, release 1500 ms) → sum → **two-pass `loudnorm`** to -14 LUFS integrated, -1 dBTP.
 
 ## Picture chain
 Square 1024² keyframes → cover-crop to 1280×720 or 720×1280 → `zoompan` at 3× oversampling (no jitter) or a Wan clip (first 0.25 s trimmed, slowed ≤1.6× then last-frame hold) → reconstruction grade and tag → title overlay (Noto Serif Ethiopic) on s01 → concat + end card → burned-in subtitles (≤2 lines × 40 chars, raised in 9:16 for the platform UI safe area) → H.264/AAC, 24 fps CFR, `+faststart`.

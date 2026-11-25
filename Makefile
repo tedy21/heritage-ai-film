@@ -4,7 +4,7 @@ PY ?= python3
 PYBIN = $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo $(PY); fi)
 export PYTHONPATH := $(CURDIR)
 
-.PHONY: help setup validate smoke narration keyframes radio film shot costs offline clean-cache import-gpu kaggle-input test
+.PHONY: help setup validate smoke narration keyframes radio film shot costs offline clean-cache import-gpu kaggle-input test audition spotting
 
 help:
 	@echo "make setup      create .venv and install requirements"
@@ -64,3 +64,9 @@ kaggle-input:
 
 test:
 	$(PY) -m unittest discover -s tests -v
+
+audition: setup
+	$(PYBIN) -m pipeline.assemble --audition
+
+spotting: setup
+	$(PYBIN) -m pipeline.spotting

@@ -4,11 +4,13 @@ Rules: change **one** thing, keep the seed fixed, and cite the evidence (runs.js
 
 | # | Hypothesis | Change (one variable) | Result (evidence) | Decision |
 |---|---|---|---|---|
-| E1 | Measured narration timing gives a film inside 60–90 s with the planned shot lengths | Narration drives shot length (`timeline.py`) | Offline: 79.6 s total. _TODO: real TTS measurement_ | |
+| E1 | Measured narration timing gives a film inside 60–90 s with the planned shot lengths | Narration drives shot length (`timeline.py`) | Offline estimate 79.6 s; real v1 172 s (F14/F15), v3 **79.5 s** | Holds once the TTS input is clean |
 | E2 | A style block on every prompt keeps the 9 keyframes looking like one film | s01–s03 with vs without `style_block` (same seeds) | _TODO_ | |
 | E3 | Conditioning on the golden reference keeps the monastery architecture consistent | s03/s04 with `refs` vs text-only (FLUX.2 klein, same seed) | _TODO_ | |
 | E4 | FLUX.2 klein beats FLUX.1 schnell for this look at similar latency | Same prompt + seed on both | _TODO (latency from runs.jsonl)_ | |
-| E5 | A delivery instruction improves Amharic narration more than switching voice | TTS with vs without the style line; then voice A vs B | _TODO (native listener)_ | |
+| E5 | The delivery instruction controls Amharic TTS pacing | v1 "calm, warm, unhurried… with reverence and short pauses" → v2 "natural steady speaking pace (not slow), brief pauses" + pause cap 0.45 s (runs `radio1`, `radio2`) | v1: 154.9 s narration for 98 words (7.9–22.0 s per line). v2: 112.9 s (6.2–19.4 s per line). Shorter but still uneven between requests, and v2 lines came from 3 models because of the quota (F13) | The instruction matters, but per-request variance is large → E5b batch |
+| E5c | The style instruction is spoken aloud and causes the slow, long lines | s04 on `gemini-2.5-flash-preview-tts`: (A) Amharic text only vs (B) style in `systemInstruction` | A: **7.9 s**, transcription check "Is ANY English spoken?" → NO. B: HTTP 500 (unsupported). v1/v2 s04 with the inline instruction: 19.8 s / 19.1 s | **Drop the instruction**; text only (F15) |
+| E5b | One batched request gives a steadier pace and one voice, at 1/9 of the quota | Whole script (text only) in 1 request to `gemini-3.8-flash-tts`, split at the 8 longest silences (run `radio3`) | 1 request, 20.3 s latency. Lines 4.0–6.3 s (v2 single requests: 6.2–19.4 s), narration **48.6 s**, film **79.5 s**. All 9 lines from the primary model. Per-clip check: no English, each clip matches its script line, none cut off | **Adopted**: batch for full runs, single requests for edits |
 | E6 | Asking for "out of focus writing" avoids garbled Ge'ez in s05 | Prompt with vs without the phrase | _TODO_ | |
 | E7 | Wan at 480p is good enough on a phone and much cheaper than 720p | Same shot, 832×480 vs 1280×704 | _TODO (gpu_s)_ | |
 | E8 | Motion-only i2v prompts drift less than full descriptions | s02 motion-only vs subject+motion prompt | _TODO_ | |

@@ -1,0 +1,1 @@
+{"model": "gemini-3.8-flash-tts", "fallback": false, "mode": "batch", "batch": "batch[s02..s09]", "span_s": [13.316, 22.118], "migrated_from": "s04-69ca5bd0479feebf.wav"}
