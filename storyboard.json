@@ -54,7 +54,7 @@
     {
       "id": "ref_monastery",
       "purpose": "Golden reference for the island monastery architecture: round church, conical thatched roof, painted interior.",
-      "prompt": "traditional round Ethiopian Orthodox island church with a conical thatched roof and mud-plastered walls, surrounded by dense green forest on an island of Lake Tana",
+      "prompt": "ancient round Ethiopian Orthodox church on a forested island of Lake Tana, conical thatched roof topped by a small ornate metal processional cross, circular covered veranda of wooden posts around mud-plastered walls, enclosed by a low dry-stone compound wall, set deep inside dense old trees, seen from the forest path, lake glimpsed between trunks",
       "seed": 1102,
       "candidates": 4,
       "chosen": 0
