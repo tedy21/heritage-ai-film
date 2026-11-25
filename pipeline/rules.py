@@ -21,7 +21,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 FILM_MIN_S, FILM_MAX_S = 60, 90          # brief: "a 60-90 second short film"
-END_CARD_S = 3.5                          # matches timeline.END_CARD_S
+END_CARD_S = 3.0                          # matches timeline.END_CARD_S
 SHOTS_MIN, SHOTS_MAX = 8, 12              # brief Phase 1.4: "eight to twelve shots"
 SUB_LINE, SUB_LINES = 40, 2               # Appendix B: "at most two lines and about 40 characters per line"
 MOTION_MAX_WORDS = 30                     # Appendix B: i2v prompt = motion + camera only
@@ -151,6 +151,13 @@ def check(sb: dict) -> list[Finding]:
              "Appendix B: write instrumental")
     if KEY_IN_CAPTION.search(music["caption"]):
         warn("music.caption", "tempo/key belong in the bpm/key fields, not the caption", "Appendix B: ACE-Step tips")
+    for cs in music.get("candidate_sets", []):
+        if "instrumental" not in cs["caption"].lower():
+            warn(f"music.candidate_sets[{cs['id']}]", "caption doesn't say 'instrumental'", "Appendix B: write instrumental")
+        if KEY_IN_CAPTION.search(cs["caption"]):
+            warn(f"music.candidate_sets[{cs['id']}]", "tempo/key belong in the bpm/key fields", "Appendix B: ACE-Step tips")
+    if len({cs["id"] for cs in music.get("candidate_sets", [])}) != len(music.get("candidate_sets", [])):
+        err("music.candidate_sets", "set ids must be unique", "contract")
     if music.get("chosen") and not (ROOT / music["chosen"]).exists():
         err("music.chosen", f"file not found: {music['chosen']}", "contract")
 

@@ -8,7 +8,7 @@ is rendered:
   * otherwise -> a Ken Burns move over the keyframe (the always-available
     fallback, also a respectable shot in its own right).
 Reconstruction shots get a warm, desaturated grade, a vignette and an
-"AI reconstruction" tag so viewers can tell them from present-day scenes.
+"AI reconstruction" tag (meta.reconstruction_tag) so viewers can tell them from present-day scenes.
 Segments are cached by hash(source bytes + move + length + grade + aspect).
 """
 from __future__ import annotations
@@ -48,6 +48,7 @@ def _overlays(sb: dict, shot: dict, w: int, h: int, length: float) -> list[str]:
     f = []
     if shot["era"] == "reconstruction":
         f.append(GRADE_RECON)
+    if shot["era"] == "reconstruction" and sb["meta"].get("reconstruction_tag", True):
         fs = int(h * 0.024)
         f.append(f"drawtext=fontfile={fq(FONT_LATIN)}:text='AI reconstruction':fontsize={fs}:"
                  f"fontcolor=white@0.85:box=1:boxcolor=black@0.35:boxborderw={fs // 3}:"

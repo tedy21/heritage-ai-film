@@ -10,7 +10,7 @@ from .common import OUT
 LEAD_S = 0.6        # picture before the voice starts
 FIRST_LEAD_S = 1.5  # let the score establish before the very first word
 TAIL_S = 0.9   # breath after the voice ends
-END_CARD_S = 3.5
+END_CARD_S = 3.0  # brief: "a two to three second end card"
 
 
 def compute(sb: dict) -> dict:

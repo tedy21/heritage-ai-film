@@ -26,6 +26,8 @@ from .music import music_track
 from . import spotting
 
 TARGET_LUFS, TARGET_TP, TARGET_LRA = -14.0, -1.0, 11.0
+LIMIT_DB = -3.0  # sample ceiling before AAC; AAC adds ~1.2 dB overshoot (measured, F18)
+LIMIT_LIN = round(10 ** (LIMIT_DB / 20), 4)
 
 
 def _cached(name: str, key: str, ext: str = "mp4") -> Path:
@@ -77,7 +79,10 @@ def build_mix(sb: dict, tl: dict, music: Path) -> Path:
     ffmpeg("-i", str(pre), "-af",
            f"loudnorm=I={TARGET_LUFS}:TP={TARGET_TP}:LRA={TARGET_LRA}:measured_I={m['input_i']}:"
            f"measured_TP={m['input_tp']}:measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:"
-           f"offset={m['target_offset']}:linear=true", "-ar", "48000", str(out))
+           f"offset={m['target_offset']}:linear=true,"
+           # linear loudnorm can't hold the ceiling and AAC adds overshoot: a brickwall
+           # at LIMIT_DB keeps the exported AAC true peak under -1 dBTP (brief: Appendix B)
+           f"alimiter=limit={LIMIT_LIN}:level=disabled:latency=1:attack=5:release=50", "-ar", "48000", str(out))
     pre.unlink(missing_ok=True)
     for old in (OUT / "final").glob(".mix-*.wav"):
         if old != out:

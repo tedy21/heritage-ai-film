@@ -20,7 +20,7 @@ No private family information is sent to any API. Prompts contain only public, d
 | Keyframes | FLUX.2 klein 4B via Cloudflare Workers AI | Apache 2.0 (4B weights); Cloudflare Workers AI terms | Usable |
 | Keyframe fallback | FLUX.1 schnell via Cloudflare | Apache 2.0 | Usable |
 | Moving shots | Wan 2.2 TI2V-5B (Kaggle) | Apache 2.0 | Usable |
-| Score | ACE-Step 1.5 | Code MIT; trained on licensed, royalty-free and synthetic data per the authors. _TODO: confirm weights licence on the HF model card._ | Usable commercially per the challenge brief |
+| Score | ACE-Step 1.5 | MIT licence; trained on licensed, royalty-free and synthetic data (per the authors and the challenge brief) | Usable commercially per the challenge brief |
 | Narration | Gemini TTS (Gemini API free tier) | Google Gemini API terms; free-tier inputs may be used to improve products | Usable with disclosure |
 | Script help | Gemini Flash | Gemini API terms | — |
 | Assembly | FFmpeg | LGPL/GPL tool; does not affect output | — |
@@ -28,6 +28,6 @@ No private family information is sent to any API. Prompts contain only public, d
 | This repo | — | see LICENSE | — |
 
 ## Labelling plan
-1. **In the film:** an "AI reconstruction" tag on historical shots, plus a 3.5 s end card: "Made with AI", the models used, and "Historical scenes are AI reconstructions, not photographs."
-2. **In the file:** MP4 metadata `comment` says it is made with AI. Provider watermarks and provenance (SynthID on Gemini audio) are left intact. We never strip metadata.
+1. **In the film:** historical shots (s06, s07) get a distinct warm, desaturated grade with a vignette, and the 3 s end card says "Made with AI", names the models and states "Historical scenes are AI reconstructions, not photographs." An on-screen "AI reconstruction" tag was used in the rough cut; it was turned off (`meta.reconstruction_tag: false`) because it covered the image and read as clutter on a phone. Disclosure of the reconstructions now rests on the grade, the end card and the platform AI label.
+2. **In the file:** MP4 metadata `title` and `comment` say it is made with AI and name the models. We add no step that removes watermarks or provenance. Honest limits: Gemini TTS audio carries an inaudible SynthID watermark, but our processing (trim, fades, loudnorm, ducking, AAC encoding) changes the waveform, and we have no tool to verify the watermark survives. FFmpeg re-encoding does not carry over provider metadata from source files. So the visible end card, the burned-in tags and the platform labels are the labelling we rely on.
 3. **On platforms:** YouTube "altered or synthetic content" = ON; TikTok "AI-generated content" label = ON; the post text says it was made with AI.

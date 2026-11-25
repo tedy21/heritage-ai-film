@@ -1,6 +1,6 @@
 # Spotting notes (generated from the measured narration timeline)
 
-Film length 01:21.38 incl. 3.5s end card. Score: `temp pad (no score chosen yet)`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
+Film length 01:20.88 incl. 3.0s end card. Score: `temp pad (no score chosen yet)`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
 
 | Cue | In | Out | Length | Shots | Gain | What it should do |
 |---|---|---|---|---|---|---|

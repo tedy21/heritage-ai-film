@@ -3,53 +3,171 @@
   "$id": "https://github.com/tedy21/heritage-ai-film/schema/storyboard.schema.json",
   "title": "Heritage Short storyboard (the contract between every pipeline stage)",
   "type": "object",
-  "required": ["meta", "references", "shots", "music"],
+  "required": [
+    "meta",
+    "references",
+    "shots",
+    "music"
+  ],
   "additionalProperties": false,
   "properties": {
     "meta": {
       "type": "object",
-      "required": ["title_am", "title_en", "language", "audience", "intent", "style_block", "reconstruction_block", "negative_block", "models", "narration_voice", "fps"],
+      "required": [
+        "title_am",
+        "title_en",
+        "language",
+        "audience",
+        "intent",
+        "style_block",
+        "reconstruction_block",
+        "negative_block",
+        "models",
+        "narration_voice",
+        "fps"
+      ],
       "additionalProperties": false,
       "properties": {
-        "title_am": {"type": "string", "minLength": 1},
-        "title_en": {"type": "string", "minLength": 1},
-        "logline": {"type": "string"},
-        "language": {"type": "string", "description": "BCP-47 code of the narration language, e.g. am-ET"},
-        "audience": {"type": "string", "minLength": 10},
-        "intent": {"type": "string", "minLength": 10},
-        "style_block": {"type": "string", "minLength": 10, "description": "Appended to every present-day image prompt"},
-        "reconstruction_block": {"type": "string", "minLength": 10, "description": "Appended to every era=reconstruction image prompt"},
-        "negative_block": {"type": "string"},
-        "fps": {"type": "integer", "enum": [24, 25, 30]},
+        "title_am": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title_en": {
+          "type": "string",
+          "minLength": 1
+        },
+        "logline": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string",
+          "description": "BCP-47 code of the narration language, e.g. am-ET"
+        },
+        "audience": {
+          "type": "string",
+          "minLength": 10
+        },
+        "intent": {
+          "type": "string",
+          "minLength": 10
+        },
+        "style_block": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Appended to every present-day image prompt"
+        },
+        "reconstruction_block": {
+          "type": "string",
+          "minLength": 10,
+          "description": "Appended to every era=reconstruction image prompt"
+        },
+        "negative_block": {
+          "type": "string"
+        },
+        "fps": {
+          "type": "integer",
+          "enum": [
+            24,
+            25,
+            30
+          ]
+        },
+        "reconstruction_tag": {
+          "type": "boolean",
+          "description": "Burn an on-screen \"AI reconstruction\" tag on era=reconstruction shots (default true). The warm grade and the end card disclose reconstructions either way."
+        },
         "models": {
           "type": "object",
-          "required": ["text", "tts", "image", "image_fallback"],
+          "required": [
+            "text",
+            "tts",
+            "image",
+            "image_fallback"
+          ],
           "additionalProperties": false,
           "properties": {
-            "text": {"type": "string"},
-            "tts": {"type": "string"},
-            "image": {"type": "string"},
-            "image_fallback": {"type": "string"},
-            "text_fallbacks": {"type": "array", "items": {"type": "string"}, "description": "Tried in order if the primary text model fails (overload/quota/unknown id)"},
-            "tts_fallbacks": {"type": "array", "items": {"type": "string"}, "description": "Tried in order if the primary TTS model fails; voice timbre may differ slightly"},
-            "video": {"type": "string"},
-            "music": {"type": "string"}
+            "text": {
+              "type": "string"
+            },
+            "tts": {
+              "type": "string"
+            },
+            "image": {
+              "type": "string"
+            },
+            "image_fallback": {
+              "type": "string"
+            },
+            "text_fallbacks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tried in order if the primary text model fails (overload/quota/unknown id)"
+            },
+            "tts_fallbacks": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Tried in order if the primary TTS model fails; voice timbre may differ slightly"
+            },
+            "video": {
+              "type": "string"
+            },
+            "music": {
+              "type": "string"
+            }
           }
         },
         "narration_voice": {
           "type": "object",
-          "required": ["voice", "style"],
+          "required": [
+            "voice",
+            "style"
+          ],
           "additionalProperties": false,
           "properties": {
-            "voice": {"type": "string", "description": "Gemini prebuilt voice name"},
-            "style": {"type": "string", "description": "Optional delivery instruction prepended to the spoken text. WARNING: TTS models speak it aloud (FAILURES F15); keep empty unless tested"},
-            "max_pause_s": {"type": "number", "minimum": 0.2, "maximum": 2, "description": "Internal pauses longer than this are shortened to it"},
-            "tempo": {"type": "number", "minimum": 0.8, "maximum": 1.4, "description": "Pitch-preserving speed change applied after TTS (1.0 = none)"},
-            "batch_min": {"type": "integer", "minimum": 2, "description": "If at least this many lines need generating, use one batched TTS request"},
-            "min_interval_s": {"type": "number", "minimum": 0, "maximum": 60, "description": "Minimum seconds between TTS calls (free-tier rate limit)"}
+            "voice": {
+              "type": "string",
+              "description": "Gemini prebuilt voice name"
+            },
+            "style": {
+              "type": "string",
+              "description": "Optional delivery instruction prepended to the spoken text. WARNING: TTS models speak it aloud (FAILURES F15); keep empty unless tested"
+            },
+            "max_pause_s": {
+              "type": "number",
+              "minimum": 0.2,
+              "maximum": 2,
+              "description": "Internal pauses longer than this are shortened to it"
+            },
+            "tempo": {
+              "type": "number",
+              "minimum": 0.8,
+              "maximum": 1.4,
+              "description": "Pitch-preserving speed change applied after TTS (1.0 = none)"
+            },
+            "batch_min": {
+              "type": "integer",
+              "minimum": 2,
+              "description": "If at least this many lines need generating, use one batched TTS request"
+            },
+            "min_interval_s": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 60,
+              "description": "Minimum seconds between TTS calls (free-tier rate limit)"
+            }
           }
         },
-        "end_card": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+        "end_card": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
       }
     },
     "references": {
@@ -57,15 +175,40 @@
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["id", "purpose", "prompt", "seed"],
+        "required": [
+          "id",
+          "purpose",
+          "prompt",
+          "seed"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": {"type": "string", "pattern": "^ref_[a-z0-9_]+$"},
-          "purpose": {"type": "string"},
-          "prompt": {"type": "string", "minLength": 10},
-          "seed": {"type": "integer", "minimum": 0},
-          "candidates": {"type": "integer", "minimum": 1, "maximum": 8, "default": 1},
-          "chosen": {"type": "integer", "minimum": 0, "description": "Index of the approved candidate (the golden reference)"}
+          "id": {
+            "type": "string",
+            "pattern": "^ref_[a-z0-9_]+$"
+          },
+          "purpose": {
+            "type": "string"
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 10
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "candidates": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8,
+            "default": 1
+          },
+          "chosen": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Index of the approved candidate (the golden reference)"
+          }
         }
       }
     },
@@ -75,43 +218,158 @@
       "maxItems": 12,
       "items": {
         "type": "object",
-        "required": ["id", "reason", "era", "shot_size", "duration_s", "image_prompt", "motion_prompt", "camera", "narration", "subtitle_en", "seed", "render"],
+        "required": [
+          "id",
+          "reason",
+          "era",
+          "shot_size",
+          "duration_s",
+          "image_prompt",
+          "motion_prompt",
+          "camera",
+          "narration",
+          "subtitle_en",
+          "seed",
+          "render"
+        ],
         "additionalProperties": false,
         "properties": {
-          "id": {"type": "string", "pattern": "^s[0-9]{2}$"},
-          "reason": {"type": "string", "minLength": 10, "description": "Why this shot exists, in one sentence"},
-          "era": {"enum": ["present", "reconstruction"]},
-          "shot_size": {"enum": ["extreme_wide", "wide", "medium", "medium_close", "close_up", "extreme_close_up", "insert"]},
-          "duration_s": {"type": "number", "minimum": 3, "maximum": 15, "description": "Minimum on-screen time; stretched if narration is longer"},
-          "image_prompt": {"type": "string", "minLength": 10},
-          "refs": {"type": "array", "items": {"type": "string", "pattern": "^ref_[a-z0-9_]+$"}},
-          "motion_prompt": {"type": "string", "description": "Wan 2.2 i2v prompt: motion and camera only"},
-          "camera": {"enum": ["push_in", "pull_out", "pan_left", "pan_right", "tilt_up", "tilt_down", "static"], "description": "Ken Burns move used when no clip exists"},
-          "narration": {"type": "string", "description": "Narration line in meta.language (may be empty for a breath shot)"},
-          "subtitle_en": {"type": "string"},
-          "seed": {"type": "integer", "minimum": 0},
-          "render": {"enum": ["wan", "kenburns"], "description": "Preferred renderer; kenburns is always the fallback"},
-          "overlay_title": {"type": "boolean"},
-          "music_cue": {"type": "string"}
+          "id": {
+            "type": "string",
+            "pattern": "^s[0-9]{2}$"
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 10,
+            "description": "Why this shot exists, in one sentence"
+          },
+          "era": {
+            "enum": [
+              "present",
+              "reconstruction"
+            ]
+          },
+          "shot_size": {
+            "enum": [
+              "extreme_wide",
+              "wide",
+              "medium",
+              "medium_close",
+              "close_up",
+              "extreme_close_up",
+              "insert"
+            ]
+          },
+          "duration_s": {
+            "type": "number",
+            "minimum": 3,
+            "maximum": 15,
+            "description": "Minimum on-screen time; stretched if narration is longer"
+          },
+          "image_prompt": {
+            "type": "string",
+            "minLength": 10
+          },
+          "refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^ref_[a-z0-9_]+$"
+            }
+          },
+          "motion_prompt": {
+            "type": "string",
+            "description": "Wan 2.2 i2v prompt: motion and camera only"
+          },
+          "camera": {
+            "enum": [
+              "push_in",
+              "pull_out",
+              "pan_left",
+              "pan_right",
+              "tilt_up",
+              "tilt_down",
+              "static"
+            ],
+            "description": "Ken Burns move used when no clip exists"
+          },
+          "narration": {
+            "type": "string",
+            "description": "Narration line in meta.language (may be empty for a breath shot)"
+          },
+          "subtitle_en": {
+            "type": "string"
+          },
+          "seed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "render": {
+            "enum": [
+              "wan",
+              "kenburns"
+            ],
+            "description": "Preferred renderer; kenburns is always the fallback"
+          },
+          "overlay_title": {
+            "type": "boolean"
+          },
+          "music_cue": {
+            "type": "string"
+          }
         }
       }
     },
     "music": {
       "type": "object",
-      "required": ["cues", "caption", "bpm", "key", "volume_db"],
+      "required": [
+        "cues",
+        "caption",
+        "bpm",
+        "key",
+        "volume_db"
+      ],
       "additionalProperties": false,
       "properties": {
-        "caption": {"type": "string", "description": "ACE-Step caption: style, mood, instruments, texture"},
-        "bpm": {"type": "integer", "minimum": 40, "maximum": 200},
-        "key": {"type": "string"},
-        "volume_db": {"type": "number", "maximum": 0},
-        "chosen": {"type": ["string", "null"], "description": "Path (relative to repo) of the chosen score; null = temp pad"},
+        "caption": {
+          "type": "string",
+          "description": "ACE-Step caption: style, mood, instruments, texture"
+        },
+        "bpm": {
+          "type": "integer",
+          "minimum": 40,
+          "maximum": 200
+        },
+        "key": {
+          "type": "string"
+        },
+        "volume_db": {
+          "type": "number",
+          "maximum": 0
+        },
+        "chosen": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Path (relative to repo) of the chosen score; null = temp pad"
+        },
         "ducking": {
           "type": "object",
           "additionalProperties": false,
           "properties": {
-            "threshold": {"type": "number"}, "ratio": {"type": "number"},
-            "attack_ms": {"type": "number"}, "release_ms": {"type": "number"}
+            "threshold": {
+              "type": "number"
+            },
+            "ratio": {
+              "type": "number"
+            },
+            "attack_ms": {
+              "type": "number"
+            },
+            "release_ms": {
+              "type": "number"
+            }
           }
         },
         "cues": {
@@ -119,14 +377,68 @@
           "minItems": 1,
           "items": {
             "type": "object",
-            "required": ["id", "from_shot", "to_shot", "intent"],
+            "required": [
+              "id",
+              "from_shot",
+              "to_shot",
+              "intent"
+            ],
             "additionalProperties": false,
             "properties": {
-              "id": {"type": "string"},
-              "from_shot": {"type": "string", "pattern": "^s[0-9]{2}$"},
-              "to_shot": {"type": "string", "pattern": "^s[0-9]{2}$"},
-              "intent": {"type": "string"},
-              "gain_db": {"type": "number", "minimum": -18, "maximum": 6, "description": "Score level for this cue relative to music.volume_db (ramped between cues)"}
+              "id": {
+                "type": "string"
+              },
+              "from_shot": {
+                "type": "string",
+                "pattern": "^s[0-9]{2}$"
+              },
+              "to_shot": {
+                "type": "string",
+                "pattern": "^s[0-9]{2}$"
+              },
+              "intent": {
+                "type": "string"
+              },
+              "gain_db": {
+                "type": "number",
+                "minimum": -18,
+                "maximum": 6,
+                "description": "Score level for this cue relative to music.volume_db (ramped between cues)"
+              }
+            }
+          }
+        },
+        "candidate_sets": {
+          "type": "array",
+          "description": "Extra ACE-Step caption variants to audition (one GPU run). Files: outputs/music/candidates/cand_<id>_<seed>.flac. Change one thing per set; reuse seeds across sets so they compare fairly.",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "caption",
+              "seeds"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z0-9_]+$"
+              },
+              "caption": {
+                "type": "string",
+                "minLength": 10
+              },
+              "seeds": {
+                "type": "array",
+                "items": {
+                  "type": "integer"
+                },
+                "minItems": 1,
+                "maxItems": 4
+              },
+              "hypothesis": {
+                "type": "string"
+              }
             }
           }
         }

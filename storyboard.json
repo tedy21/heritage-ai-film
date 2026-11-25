@@ -10,6 +10,7 @@
     "reconstruction_block": "respectful historical reconstruction set centuries ago, warm candlelight, painterly cinematic lighting, deep shadows, gentle film grain, subject centred in frame, no text, no letters, no watermark",
     "negative_block": "text, letters, captions, watermark, logo, modern clothing brands, plastic, distorted hands, extra fingers, deformed face",
     "fps": 24,
+    "reconstruction_tag": false,
     "models": {
       "text": "gemini-3.5-flash",
       "text_fallbacks": [
@@ -158,8 +159,8 @@
       "refs": [],
       "motion_prompt": "candle flame flickers, the scribe's hand moves slowly, camera static",
       "camera": "pull_out",
-      "narration": "በሻማ ብርሃን ጸሐፍት ቃል በቃል፣ ገጽ በገጽ ጽፈዋል። ትዕግሥታቸው ዛሬም ድረስ ግልጽ ነው።",
-      "subtitle_en": "By candlelight, scribes wrote word by word, page by page. Their patience is still clear today.",
+      "narration": "በጧፍ ብርሃን ብራና ላይ ጽሑፍ መጻፍ የጥንት ጸሐፊዎችን ትዕግስትና ጥበብ ያሳያል። ዛሬም ድረስ የሚያስደንቅ ሥራ ነው።",
+      "subtitle_en": "By the light of beeswax tapers, scribes wrote on parchment, letter by letter. Their patience can still be seen today.",
       "seed": 2006,
       "render": "kenburns",
       "music_cue": "m3"
@@ -182,15 +183,15 @@
     },
     {
       "id": "s08",
-      "reason": "Handover to today: a young Ethiopian looking at the paintings puts the audience inside the story.",
+      "reason": "The handover: a monk, a living guardian of the heritage, stands before the paintings as the narration says the trust is now in our hands. A monk rather than a visitor, because several Lake Tana island monasteries do not admit women.",
       "era": "present",
       "shot_size": "medium",
       "duration_s": 8,
-      "image_prompt": "a young Ethiopian woman in a white netela scarf seen from behind, quietly looking at the colourful painted wall of a round island church",
+      "image_prompt": "an elderly Ethiopian Orthodox monk seen from behind, face not visible, wrapped in a traditional yellow-ochre robe with a small round monk's cap, holding a small wooden hand cross, standing quietly before the colourful painted wall of the same round church with a single conical thatched grass roof and mud walls, covered wooden veranda, inside dense forest",
       "refs": [
         "ref_monastery"
       ],
-      "motion_prompt": "she slowly raises her head toward the paintings, camera gently pushes in",
+      "motion_prompt": "he slowly raises his head toward the paintings, camera gently pushes in",
       "camera": "push_in",
       "narration": "ዛሬ ይህ አደራ በእኛ እጅ ነው። ማወቅ፣ ማክበርና መጠበቅ የእኛ ድርሻ ነው።",
       "subtitle_en": "Today this trust is in our hands. To know it, honour it and protect it is our part.",
@@ -255,6 +256,28 @@
         "to_shot": "s09",
         "intent": "Hope and handover; the opening motif returns, warmer, then resolves.",
         "gain_db": 2
+      }
+    ],
+    "candidate_sets": [
+      {
+        "id": "begena_named",
+        "seeds": [
+          401,
+          402,
+          403
+        ],
+        "hypothesis": "Naming the instrument ('begena') is enough for ACE-Step to produce its sound.",
+        "caption": "instrumental, solo Ethiopian begena, Ethiopian Orthodox meditative prayer music, slow sparse plucked notes with long pauses, intimate, reverent, ancient, no drums, no vocals"
+      },
+      {
+        "id": "begena_described",
+        "seeds": [
+          401,
+          402,
+          403
+        ],
+        "hypothesis": "Describing the begena's sound gets closer than its name, because the model may not know the word.",
+        "caption": "instrumental, solo large ten-string box lyre plucked with the fingers, deep low strings with a strong buzzing rattling timbre on every note, slow sparse notes with long pauses, meditative ancient church prayer, intimate, reverent, dry close sound, no drums, no vocals"
       }
     ]
   }

@@ -1,28 +1,28 @@
 {
-  "key": "f7eac4896c4079b7",
+  "key": "7ec6750b55d4bb0f",
   "model": "gemini-3.5-flash",
   "rows": [
     {
       "id": "s01",
-      "back_translation": "At dawn, Lake Tana wakes in silence. Ethiopia's largest lake, the source of the Nile.",
+      "back_translation": "As dawn breaks, Lake Tana awakens in silence. Ethiopia's largest lake, the source of the Nile.",
       "match": true,
       "note": ""
     },
     {
       "id": "s02",
-      "back_translation": "For ages, tankwa paddlers have lived traveling on this water. The lake is both their road and their home.",
+      "back_translation": "For ages, tankwa paddlers have lived traveling on this water. The lake is both their road and their dwelling.",
       "match": true,
       "note": ""
     },
     {
       "id": "s03",
-      "back_translation": "But amidst the forest of the islands, ancient monasteries with a history spanning ages are hidden.",
+      "back_translation": "But amidst the forests of the islands, ancient monasteries with a history spanning ages are hidden.",
       "match": true,
       "note": ""
     },
     {
       "id": "s04",
-      "back_translation": "On their walls, saints appear as richly colored paintings. Each painting is both a prayer and a lesson.",
+      "back_translation": "On their walls, saints are seen in colorful paintings. Each painting is both a prayer and a lesson.",
       "match": true,
       "note": ""
     },
@@ -34,25 +34,25 @@
     },
     {
       "id": "s06",
-      "back_translation": "By candlelight, scribes wrote word by word, page by page. Their patience is clear even until today.",
+      "back_translation": "By taper light, scribes wrote letter by letter on parchment. Their patience is visible even today.",
       "match": true,
       "note": ""
     },
     {
       "id": "s07",
-      "back_translation": "In times of war and hardship, these heritages were preserved inside the islands. Even the waves could not erase them.",
+      "back_translation": "In times of war and hardship, these relics were preserved inside the islands. Even the waves could not destroy them.",
       "match": true,
       "note": ""
     },
     {
       "id": "s08",
-      "back_translation": "Today this trust is in our hands. Knowing, honoring, and protecting is our share.",
+      "back_translation": "Today this trust is in our hands. Knowing, honoring, and protecting it is our responsibility.",
       "match": true,
       "note": ""
     },
     {
       "id": "s09",
-      "back_translation": "Tana is not just a beautiful lake. As it is a history not erased by waves, let us protect it for the coming generation.",
+      "back_translation": "Tana is not just a beautiful lake. It is a history not destroyed by waves, so let us protect it for the coming generation.",
       "match": true,
       "note": ""
     }

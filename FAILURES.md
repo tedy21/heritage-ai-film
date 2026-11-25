@@ -95,3 +95,10 @@ Format: **symptom → cause → what I tried → fix / workaround → evidence**
 ### Design change prompted by F16: the narration cache was split into raw and processed
 - **Problem:** the processing settings (fades, trimming) were part of the same cache key as the TTS request, so fixing a click would have spent new TTS quota (10/day, F13).
 - **Change:** `outputs/narration/raw/` holds model output, keyed by text, voice and model chain; `outputs/narration/` holds processed audio, keyed by the raw file bytes and the processing settings. The existing lines were migrated into the raw layer. Result for the F16/F17 rebuild (`fix5`): **0 API calls**, 9 lines reprocessed by FFmpeg.
+
+### F18. Export true peak above the −1 dBTP ceiling (25 Nov, found by an audit against the brief)
+- **Symptom:** the rough cut measured −14.3 LUFS but **−0.7 dBTP** (`ffmpeg -af ebur128=peak=true`); the brief (Appendix B) asks for true peaks below −1 dB.
+- **Tried 1:** a brickwall `alimiter` at −2 dBFS after the two-pass loudnorm. The mix WAV then peaked at exactly −2.0 dBFS, but the MP4 still measured −0.76 dB.
+- **Cause:** the **AAC encoder adds ~1.2 dB of overshoot** when it compresses the audio, so a ceiling set on the WAV is not the ceiling of the delivered file. (Linear loudnorm alone can't hold a ceiling either.)
+- **Fix:** limiter at −3 dBFS with latency compensation (keeps sync), `STAGE_VERSION["assemble"]` bumped so the cache rebuilds. Measured after: **−1.5 dBTP**, −15.0 LUFS (within 1 LU of the target), both ratios.
+- **Lesson:** measure the delivered file, not the intermediate.

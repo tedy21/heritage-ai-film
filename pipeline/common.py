@@ -29,9 +29,9 @@ STAGE_VERSION = {
     "keyframes": 1,
     "narration": 1,
     "music": 1,
-    "segments": 1,
+    "segments": 2,  # v2: reconstruction tag optional (meta.reconstruction_tag)
     "subtitles": 1,
-    "assemble": 1,
+    "assemble": 3,  # v3: -3 dBFS limiter after loudnorm (AAC overshoot)
 }
 
 
