@@ -1,6 +1,8 @@
 # %% [markdown]
 # # Wan 2.2 TI2V-5B image-to-video on Kaggle (T4 x2)
 # Paste each `# %%` cell into a Kaggle notebook (GPU T4 x2, Internet ON).
+# BEFORE running: Session options -> Persistence -> 'Files only' (FAILURES F10),
+# and use a NEW notebook (the ACE-Step one filled 17 GB of the 19.5 GB disk).
 # Upload a dataset containing `storyboard.json` and `outputs/keyframes/` from the repo
 # (or zip them: `zip -r kaggle_in.zip storyboard.json outputs/keyframes`).
 # Output: /kaggle/working/clips/<shot>.mp4 and /kaggle/working/clips/timings.json
@@ -88,4 +90,8 @@ for s in todo:                                  # saves after every shot (sessio
     print(rec)
 
 # %%
-!cd /kaggle/working && zip -qr clips.zip clips && ls -la clips
+# Download BEFORE stopping the session (F10). Then: unzip into the repo's outputs/clips/ and `make import-gpu`.
+%cd /kaggle/working
+!zip -qr clips.zip clips && ls -la clips clips.zip
+from IPython.display import FileLink
+FileLink("clips.zip")

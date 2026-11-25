@@ -12,6 +12,7 @@ Outputs: outputs/final/tana_16x9.mp4, outputs/final/tana_9x16.mp4
 from __future__ import annotations
 
 import argparse
+import os
 import json
 import re
 import time
@@ -98,12 +99,13 @@ def export(sb: dict, tl: dict, aspect: str, mix: Path, srt: Path, segments: list
     final = OUT / "final" / f"{name}.mp4"
     stamp = OUT / "final" / f".{name}.key"
     call = Call("assemble", name, "ffmpeg", "concat+subtitles+mux", {"aspect": aspect, "segments": len(segments)})
+    lst = OUT / "final" / f".{name}.concat.txt"
+    # relative paths: the list is committed, so no machine-specific absolute paths
+    lst.write_text("".join(f"file '{os.path.relpath(p, lst.parent)}'\n" for p in segments))
     if final.exists() and stamp.exists() and stamp.read_text() == key:
         log_cache_hit(call, final)
         return final
     t0 = time.time()
-    lst = OUT / "final" / f".{name}.concat.txt"
-    lst.write_text("".join(f"file '{p}'\n" for p in segments))
     vf = f"subtitles={shots_mod.fq(srt)}:force_style='{_sub_style(aspect)}'"
     ffmpeg("-f", "concat", "-safe", "0", "-i", str(lst), "-i", str(mix),
            "-vf", vf, "-map", "0:v", "-map", "1:a",

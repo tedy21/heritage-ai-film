@@ -1,0 +1,60 @@
+{
+  "key": "f56b049855aa171a",
+  "model": "gemini-3.5-flash",
+  "rows": [
+    {
+      "id": "s01",
+      "back_translation": "As dawn breaks, Lake Tana awakens in silence. Ethiopia's largest lake, the source of the Abay (Blue Nile).",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s02",
+      "back_translation": "For ages, tankwa paddlers have lived traveling in this water. The lake is both their road and their home.",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s03",
+      "back_translation": "But hidden among the forests of the islands are ancient monasteries with a history older than the lake.",
+      "match": true,
+      "note": "Factually, the monasteries are much younger than the natural lake itself."
+    },
+    {
+      "id": "s04",
+      "back_translation": "On their walls, saints appear depicted in brightly colored paintings. Each painting is both a prayer and a lesson.",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s05",
+      "back_translation": "Books written on parchment have preserved ancient knowledge and faith for ages.",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s06",
+      "back_translation": "By candlelight, scribes wrote word by word, page by page. Their patience is evident even today.",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s07",
+      "back_translation": "In times of war and hardship, these heritage treasures were preserved within the islands. Even the waves could not destroy them.",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s08",
+      "back_translation": "Today this trust is in our hands. Knowing, honoring, and protecting it is our role.",
+      "match": true,
+      "note": ""
+    },
+    {
+      "id": "s09",
+      "back_translation": "Tana is not just a beautiful lake. Since it is a history not destroyed by storms, let us protect it for the coming generation.",
+      "match": true,
+      "note": ""
+    }
+  ]
+}
