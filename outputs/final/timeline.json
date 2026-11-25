@@ -11,69 +11,69 @@
     {
       "id": "s02",
       "start": 8.0,
-      "length": 8.0,
-      "narration": "outputs/narration/s02-51d19f3306bb0d0d.wav",
+      "length": 8.916666666666666,
+      "narration": "outputs/narration/s02-f03bf7582d268276.wav",
       "narration_start": 8.6,
-      "narration_len": 5.923
+      "narration_len": 7.431
     },
     {
       "id": "s03",
-      "start": 16.0,
-      "length": 8.0,
-      "narration": "outputs/narration/s03-22d7e29f5c22422e.wav",
-      "narration_start": 16.6,
-      "narration_len": 5.139
+      "start": 16.917,
+      "length": 8.208333333333334,
+      "narration": "outputs/narration/s03-774d61b758244df5.wav",
+      "narration_start": 17.517,
+      "narration_len": 6.691
     },
     {
       "id": "s04",
-      "start": 24.0,
+      "start": 25.125,
       "length": 8.75,
       "narration": "outputs/narration/s04-c2d082e37de77cf4.wav",
-      "narration_start": 24.6,
+      "narration_start": 25.725,
       "narration_len": 7.244
     },
     {
       "id": "s05",
-      "start": 32.75,
+      "start": 33.875,
       "length": 8.0,
       "narration": "outputs/narration/s05-fb84d9715a0725d2.wav",
-      "narration_start": 33.35,
+      "narration_start": 34.475,
       "narration_len": 4.157
     },
     {
       "id": "s06",
-      "start": 40.75,
+      "start": 41.875,
       "length": 9.0,
       "narration": "outputs/narration/s06-fae18002b2710b7f.wav",
-      "narration_start": 41.35,
+      "narration_start": 42.475,
       "narration_len": 5.579
     },
     {
       "id": "s07",
-      "start": 49.75,
+      "start": 50.875,
       "length": 9.0,
       "narration": "outputs/narration/s07-0941a582e38d291b.wav",
-      "narration_start": 50.35,
+      "narration_start": 51.475,
       "narration_len": 5.994
     },
     {
       "id": "s08",
-      "start": 58.75,
+      "start": 59.875,
       "length": 8.0,
       "narration": "outputs/narration/s08-b17c5e3a328d64d9.wav",
-      "narration_start": 59.35,
+      "narration_start": 60.475,
       "narration_len": 4.692
     },
     {
       "id": "s09",
-      "start": 66.75,
+      "start": 67.875,
       "length": 10.0,
       "narration": "outputs/narration/s09-13b5d851c4bd752b.wav",
-      "narration_start": 67.35,
+      "narration_start": 68.475,
       "narration_len": 5.328
     }
   ],
-  "end_card_start": 76.75,
+  "end_card_start": 77.875,
   "end_card_len": 3.5,
-  "total": 80.25
+  "total": 81.375
 }

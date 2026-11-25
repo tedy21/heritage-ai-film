@@ -31,17 +31,17 @@
 **Phase 1: Foundation** ✅ *(pipeline, Kaggle music, smoke test, radio cut)*
 
 **Phase 2: Lock the words** *(today)*
-- [ ] 2.1 You: decide s02 (ውስጥ / ላይ) and s03 (fix "older than the lake")
-- [ ] 2.2 Claude: `make radio` + `make script` → 9/9, no notes
+- [x] 2.1 You: decide s02 (ውስጥ / ላይ) and s03 (fix "older than the lake")
+- [x] 2.2 Claude: `make radio` + `make script` → 9/9, no notes
 - [ ] 2.3 You: user test 1, play `radio_cut.mp4` to 3+ people, send me their answers
 - [ ] 2.4 Claude: write test 1 into DESIGN.md + make 1 storyboard change from it
 - Done when: `make status` shows user test 1 = 3/3
 
-**Phase 3: Pictures** *(today, runs alongside 2.3)*
-- [ ] 3.1 Claude: generate 4 reference-sheet candidates (FLUX)
-- [ ] 3.2 You: pick 1 reference
-- [ ] 3.3 Claude: generate 9 keyframes, you flag any bad ones, Claude redoes only those
-- [ ] 3.4 Claude: `make film` → rough cut, 16:9 + 9:16 (Ken Burns, the safety net)
+**Phase 3: Pictures** ✅
+- [x] 3.1 Claude: generate 4 reference-sheet candidates (FLUX)
+- [x] 3.2 You: pick 1 reference
+- [x] 3.3 Claude: generate 9 keyframes, you flag any bad ones, Claude redoes only those
+- [x] 3.4 Claude: `make film` → rough cut, 16:9 + 9:16 (Ken Burns, the safety net)
 - Done when: both MP4s exist, 60–90 s
 
 **Phase 4: Music**
@@ -101,3 +101,4 @@
 | 25 Nov | Raw/processed narration cache split | audio fixes must not cost quota | F16 note, ARCHITECTURE |
 | 25 Nov | Spotting + per-cue shaping before choosing the score | the professional order (Appendix C) | DESIGN.md spotting table |
 | 25 Nov | Script back-translation check stage | accurate subtitles; one Amharic reader | `outputs/script/review.md` |
+| 25 Nov | s02 "ውስጥ"→"ላይ"; s03 "ከሐይቁ ዕድሜ የገፋ"→"ዘመናትን የተሻገረ" | boats travel *on* water; monasteries are not older than the lake (script check flagged it) | `outputs/script/review.md` 9/9, no notes; 2 TTS calls, run 20261125T164028 |

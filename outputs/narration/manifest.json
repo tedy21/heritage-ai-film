@@ -5,13 +5,13 @@
     "model": "gemini-3.8-flash-tts"
   },
   "s02": {
-    "path": "outputs/narration/s02-51d19f3306bb0d0d.wav",
-    "duration_s": 5.923,
+    "path": "outputs/narration/s02-f03bf7582d268276.wav",
+    "duration_s": 7.431,
     "model": "gemini-3.8-flash-tts"
   },
   "s03": {
-    "path": "outputs/narration/s03-22d7e29f5c22422e.wav",
-    "duration_s": 5.139,
+    "path": "outputs/narration/s03-774d61b758244df5.wav",
+    "duration_s": 6.691,
     "model": "gemini-3.8-flash-tts"
   },
   "s04": {

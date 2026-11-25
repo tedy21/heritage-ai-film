@@ -49,7 +49,7 @@
       "prompt": "wide view of Lake Tana in northern Ethiopia at early morning, calm silver-blue water, low papyrus reeds in foreground, small forested islands on the horizon, soft mist",
       "seed": 1101,
       "candidates": 4,
-      "chosen": 0
+      "chosen": 1
     },
     {
       "id": "ref_monastery",
@@ -57,7 +57,7 @@
       "prompt": "ancient round Ethiopian Orthodox church on a forested island of Lake Tana, conical thatched roof topped by a small ornate metal processional cross, circular covered veranda of wooden posts around mud-plastered walls, enclosed by a low dry-stone compound wall, set deep inside dense old trees, seen from the forest path, lake glimpsed between trunks",
       "seed": 1102,
       "candidates": 4,
-      "chosen": 0
+      "chosen": 1
     }
   ],
   "shots": [
@@ -86,14 +86,14 @@
       "era": "present",
       "shot_size": "wide",
       "duration_s": 8,
-      "image_prompt": "a traditional papyrus tankwa boat gliding on mirror-still water, a lone paddler seen from behind, early morning light",
+      "image_prompt": "a traditional Lake Tana tankwa boat made of tightly bundled papyrus reeds, gliding on mirror-still water, a lone paddler in a white cotton gabi shawl seen from behind, early morning light",
       "refs": [
         "ref_lake"
       ],
       "motion_prompt": "the boat glides slowly forward, gentle ripples spread on the water, camera static",
       "camera": "pan_right",
-      "narration": "ለዘመናት የታንኳ ቀዛፊዎች በዚህ ውሃ ውስጥ ሲጓዙ ኖረዋል። ሐይቁ መንገዳቸውም፣ መኖሪያቸውም ነው።",
-      "subtitle_en": "For ages, tankwa paddlers have travelled through this water. The lake is their road and their home.",
+      "narration": "ለዘመናት የታንኳ ቀዛፊዎች በዚህ ውሃ ላይ ሲጓዙ ኖረዋል። ሐይቁ መንገዳቸውም፣ መኖሪያቸውም ነው።",
+      "subtitle_en": "For ages, tankwa paddlers have travelled across this water. The lake is their road and their home.",
       "seed": 2002,
       "render": "wan",
       "music_cue": "m1"
@@ -110,8 +110,8 @@
       ],
       "motion_prompt": "slow push forward between the trees, leaves sway softly in the breeze",
       "camera": "push_in",
-      "narration": "በደሴቶቹ ጫካ መካከል ግን፣ ከሐይቁ ዕድሜ የገፋ ታሪክ ያላቸው ጥንታዊ ገዳማት ተደብቀዋል።",
-      "subtitle_en": "But hidden in the island forests are ancient monasteries with a history older than the lake.",
+      "narration": "በደሴቶቹ ጫካ መካከል ግን፣ ዘመናትን የተሻገረ ታሪክ ያላቸው ጥንታዊ ገዳማት ተደብቀዋል።",
+      "subtitle_en": "But hidden in the island forests are ancient monasteries, with a history that has crossed the centuries.",
       "seed": 2003,
       "render": "wan",
       "music_cue": "m2"
@@ -122,10 +122,8 @@
       "era": "present",
       "shot_size": "medium",
       "duration_s": 8,
-      "image_prompt": "interior wall of an Ethiopian Orthodox island church covered in bright traditional religious paintings of saints with large eyes, warm light from an open wooden door",
-      "refs": [
-        "ref_monastery"
-      ],
+      "image_prompt": "inside a dim round Ethiopian Orthodox church, the curved interior wall covered floor to ceiling in bright traditional religious paintings of saints with large eyes, warm daylight falling through an open wooden door, no people",
+      "refs": [],
       "motion_prompt": "slow pan across the painted wall, dust floating in the light, camera smooth",
       "camera": "pan_left",
       "narration": "በግድግዳዎቻቸው ላይ፣ ቅዱሳን በቀለማት ያሸበረቁ ሥዕሎች ሆነው ይታያሉ። እያንዳንዱ ሥዕል ጸሎትም ትምህርትም ነው።",
@@ -140,10 +138,8 @@
       "era": "present",
       "shot_size": "close_up",
       "duration_s": 8,
-      "image_prompt": "close-up of an open ancient parchment manuscript with a colourful painted illumination of a saint, worn leather binding, shallow depth of field, writing blurred and out of focus",
-      "refs": [
-        "ref_monastery"
-      ],
+      "image_prompt": "extreme close-up filling the frame of an open ancient parchment manuscript on a wooden stand indoors, a colourful painted illumination of a saint, worn edges, shallow depth of field, writing blurred and out of focus",
+      "refs": [],
       "motion_prompt": "very slow push in, candle light flickers softly on the page",
       "camera": "push_in",
       "narration": "በብራና ላይ የተጻፉ መጻሕፍት የጥንት ዕውቀትና እምነትን ለዘመናት ጠብቀው ቆይተዋል።",
@@ -158,7 +154,7 @@
       "era": "reconstruction",
       "shot_size": "medium",
       "duration_s": 9,
-      "image_prompt": "an Ethiopian scribe in a white cotton robe seen from behind, bent over a parchment by candlelight inside a stone room, reed pen and ink horn beside him",
+      "image_prompt": "an Ethiopian scribe seen strictly from behind, face not visible, wrapped in a traditional white cotton gabi shawl, bent over a parchment by candlelight inside a stone room, reed pen and ink horn beside him",
       "refs": [],
       "motion_prompt": "candle flame flickers, the scribe's hand moves slowly, camera static",
       "camera": "pull_out",
@@ -208,10 +204,8 @@
       "era": "present",
       "shot_size": "extreme_wide",
       "duration_s": 10,
-      "image_prompt": "Lake Tana at sunset, gentle waves catching orange light, silhouette of a forested island with a monastery on the horizon",
-      "refs": [
-        "ref_lake"
-      ],
+      "image_prompt": "wide view of Lake Tana at sunset, orange and violet sky reflected in gentle waves, a dark silhouette of a low densely forested island on the horizon, above its treetops only the small pointed tip of a thatched church roof with a cross",
+      "refs": [],
       "motion_prompt": "gentle waves roll toward the camera, sun slowly sinks, camera slowly pulls back",
       "camera": "pull_out",
       "narration": "ጣና ውብ ሐይቅ ብቻ አይደለም። በማዕበል ያልጠፋ ታሪክ ነውና ለመጪው ትውልድ እንጠብቀው።",
