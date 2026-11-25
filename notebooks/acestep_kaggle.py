@@ -50,5 +50,6 @@ Path("/kaggle/working/ACE-Step-1.5/gen.py").write_text(gen)
 
 # %%
 %cd /kaggle/working/ACE-Step-1.5
-!uv run python gen.py
+# Kaggle exports MPLBACKEND=matplotlib_inline, which the isolated venv lacks
+!MPLBACKEND=Agg uv run python gen.py
 !ls -la /kaggle/working/music

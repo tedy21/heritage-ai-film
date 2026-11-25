@@ -39,3 +39,9 @@ Format: **symptom → cause → what I tried → fix / workaround → evidence**
 - **Symptom:** `/root/.local/bin/uv: No such file or directory`.
 - **Cause:** the curl installer's target path differs on Kaggle, and the install cell's `%cd` wasn't guaranteed to have run.
 - **Fix:** `pip install uv`, absolute `%cd /kaggle/working/ACE-Step-1.5` before `uv sync` and `uv run`, and gen.py written to an absolute path.
+
+### F9. ACE-Step crashed on import: invalid matplotlib backend (25 Nov)
+- **Symptom:** `ValueError: Key backend: 'module://matplotlib_inline.backend_inline' is not a valid value for backend`, raised while `acestep` imported lightning → torchmetrics → matplotlib.
+- **Cause:** Kaggle exports `MPLBACKEND` for its notebook UI. The `uv run` child process inherits it, but ACE-Step's isolated `.venv` has no `matplotlib_inline`.
+- **Fix:** `MPLBACKEND=Agg uv run python gen.py`, which overrides the variable for that one command (Agg = headless, file-only rendering).
+- **Lesson:** isolated environments still inherit environment variables from the parent process.
