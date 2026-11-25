@@ -1,0 +1,211 @@
+{
+  "meta": {
+    "title_am": "ጣና፡ በማዕበል ያልጠፋ ታሪክ",
+    "title_en": "Tana: A Story That Outlasted the Waves",
+    "logline": "Beneath the calm of Lake Tana lie island monasteries that kept Ethiopia's art, faith and memory safe for centuries, and now hand that trust to us.",
+    "language": "am-ET",
+    "audience": "Ethiopian youth and families (at home and in the diaspora) watching on phones via Telegram, TikTok and YouTube, plus international viewers curious about Ethiopian heritage.",
+    "intent": "At the end the viewer should feel that Lake Tana is not just a beautiful landscape but a living part of Ethiopia's memory, and that protecting it is now their part.",
+    "style_block": "photorealistic cinematic documentary still, natural light, soft atmospheric haze, 35mm film look, gentle film grain, muted earthy palette of ochre, green and lake blue, northern Ethiopian highlands, subject centred in frame, no text, no letters, no watermark",
+    "reconstruction_block": "respectful historical reconstruction set centuries ago, warm candlelight, painterly cinematic lighting, deep shadows, gentle film grain, subject centred in frame, no text, no letters, no watermark",
+    "negative_block": "text, letters, captions, watermark, logo, modern clothing brands, plastic, distorted hands, extra fingers, deformed face",
+    "fps": 24,
+    "models": {
+      "text": "gemini-3.8-flash",
+      "tts": "gemini-3.8-flash-tts",
+      "image": "@cf/black-forest-labs/flux-2-klein-4b",
+      "image_fallback": "@cf/black-forest-labs/flux-1-schnell",
+      "video": "Wan-AI/Wan2.2-TI2V-5B-Diffusers",
+      "music": "ACE-Step 1.5"
+    },
+    "narration_voice": {
+      "voice": "Charon",
+      "style": "Read this in Amharic as a calm, warm, unhurried documentary narrator, with reverence and short pauses between sentences:"
+    },
+    "end_card": [
+      "Made with AI",
+      "Images: FLUX (Cloudflare Workers AI) · Motion: Wan 2.2",
+      "Narration: Gemini TTS (synthetic voice) · Score: ACE-Step",
+      "Historical scenes are AI reconstructions, not photographs."
+    ]
+  },
+  "references": [
+    {
+      "id": "ref_lake",
+      "purpose": "Golden reference for the lake, light and palette; every present-day keyframe is conditioned on it.",
+      "prompt": "wide view of Lake Tana in northern Ethiopia at early morning, calm silver-blue water, low papyrus reeds in foreground, small forested islands on the horizon, soft mist",
+      "seed": 1101,
+      "candidates": 4,
+      "chosen": 0
+    },
+    {
+      "id": "ref_monastery",
+      "purpose": "Golden reference for the island monastery architecture: round church, conical thatched roof, painted interior.",
+      "prompt": "traditional round Ethiopian Orthodox island church with a conical thatched roof and mud-plastered walls, surrounded by dense green forest on an island of Lake Tana",
+      "seed": 1102,
+      "candidates": 4,
+      "chosen": 0
+    }
+  ],
+  "shots": [
+    {
+      "id": "s01",
+      "reason": "Establishing shot: tell the viewer where we are and set the calm, reverent tone before any history appears.",
+      "era": "present",
+      "shot_size": "extreme_wide",
+      "duration_s": 8,
+      "image_prompt": "aerial view of Lake Tana at sunrise, golden light spreading across still water, mist over small forested islands",
+      "refs": ["ref_lake"],
+      "motion_prompt": "slow aerial drift forward over the water, mist moving gently, sunlight slowly brightening",
+      "camera": "push_in",
+      "narration": "ጎህ ሲቀድ፣ የጣና ሐይቅ በጸጥታ ይነቃል። የኢትዮጵያ ትልቁ ሐይቅ፣ የዓባይ መነሻ።",
+      "subtitle_en": "At dawn, Lake Tana wakes in silence. Ethiopia's largest lake, the source of the Blue Nile.",
+      "seed": 2001,
+      "render": "wan",
+      "overlay_title": true,
+      "music_cue": "m1"
+    },
+    {
+      "id": "s02",
+      "reason": "Shows that people have lived with this lake for generations: the heritage is human, not only scenery.",
+      "era": "present",
+      "shot_size": "wide",
+      "duration_s": 8,
+      "image_prompt": "a traditional papyrus tankwa boat gliding on mirror-still water, a lone paddler seen from behind, early morning light",
+      "refs": ["ref_lake"],
+      "motion_prompt": "the boat glides slowly forward, gentle ripples spread on the water, camera static",
+      "camera": "pan_right",
+      "narration": "ለዘመናት፣ የታንኳ ቀዛፊዎች በዚህ ውሃ ላይ ተጉዘዋል። ሐይቁ መንገዳቸውም፣ ቤታቸውም ነው።",
+      "subtitle_en": "For ages, tankwa paddlers have crossed this water. The lake is their road, and their home.",
+      "seed": 2002,
+      "render": "wan",
+      "music_cue": "m1"
+    },
+    {
+      "id": "s03",
+      "reason": "The turn of the story: the beautiful landscape hides something deeper, so the viewer leans in.",
+      "era": "present",
+      "shot_size": "wide",
+      "duration_s": 8,
+      "image_prompt": "through the dense trees of a Lake Tana island, a round church with a conical thatched roof is revealed in dappled light",
+      "refs": ["ref_monastery"],
+      "motion_prompt": "slow push forward between the trees, leaves sway softly in the breeze",
+      "camera": "push_in",
+      "narration": "በደሴቶቹ ጫካ መካከል ግን፣ ከሐይቁ የጠለቀ ታሪክ ተሸሽጓል፤ ጥንታዊ ገዳማት።",
+      "subtitle_en": "But in the island forests hides a story deeper than the lake: ancient monasteries.",
+      "seed": 2003,
+      "render": "wan",
+      "music_cue": "m2"
+    },
+    {
+      "id": "s04",
+      "reason": "Art: the monastery walls are a gallery of colour and teaching, which international viewers rarely see.",
+      "era": "present",
+      "shot_size": "medium",
+      "duration_s": 8,
+      "image_prompt": "interior wall of an Ethiopian Orthodox island church covered in bright traditional religious paintings of saints with large eyes, warm light from an open wooden door",
+      "refs": ["ref_monastery"],
+      "motion_prompt": "slow pan across the painted wall, dust floating in the light, camera smooth",
+      "camera": "pan_left",
+      "narration": "በግድግዳዎቻቸው ላይ፣ ቅዱሳን በደማቅ ቀለማት ይኖራሉ። እያንዳንዱ ሥዕል ጸሎትም ትምህርትም ነው።",
+      "subtitle_en": "On their walls, saints live in bright colours. Every painting is both a prayer and a lesson.",
+      "seed": 2004,
+      "render": "kenburns",
+      "music_cue": "m2"
+    },
+    {
+      "id": "s05",
+      "reason": "Knowledge: the manuscripts are the core of the heritage; a close-up makes them precious and tactile.",
+      "era": "present",
+      "shot_size": "close_up",
+      "duration_s": 8,
+      "image_prompt": "close-up of an open ancient parchment manuscript with a colourful painted illumination of a saint, worn leather binding, shallow depth of field, writing blurred and out of focus",
+      "refs": ["ref_monastery"],
+      "motion_prompt": "very slow push in, candle light flickers softly on the page",
+      "camera": "push_in",
+      "narration": "በብራና ላይ የተጻፉ መጻሕፍት፣ የቀደሙትን ዕውቀትና እምነት ለዘመናት ጠብቀዋል።",
+      "subtitle_en": "Books written on parchment have kept the knowledge and faith of our ancestors for centuries.",
+      "seed": 2005,
+      "render": "kenburns",
+      "music_cue": "m2"
+    },
+    {
+      "id": "s06",
+      "reason": "The generations: a reconstruction of the patient scribes who made the books, so the viewer feels the human effort.",
+      "era": "reconstruction",
+      "shot_size": "medium",
+      "duration_s": 9,
+      "image_prompt": "an Ethiopian scribe in a white cotton robe seen from behind, bent over a parchment by candlelight inside a stone room, reed pen and ink horn beside him",
+      "refs": [],
+      "motion_prompt": "candle flame flickers, the scribe's hand moves slowly, camera static",
+      "camera": "pull_out",
+      "narration": "በሻማ ብርሃን፣ ጸሐፍት ቃል በቃል፣ ገጽ በገጽ ጽፈዋል። ትዕግሥታቸው ዛሬም ይናገራል።",
+      "subtitle_en": "By candlelight, scribes wrote word by word, page by page. Their patience still speaks today.",
+      "seed": 2006,
+      "render": "kenburns",
+      "music_cue": "m3"
+    },
+    {
+      "id": "s07",
+      "reason": "Protection through hardship: the title's 'waves' are war and time, and the islands kept the treasures safe.",
+      "era": "reconstruction",
+      "shot_size": "wide",
+      "duration_s": 9,
+      "image_prompt": "at dusk, robed figures seen from a distance carefully carry wrapped bundles of books from a papyrus boat onto a forested island shore, stormy sky over the lake",
+      "refs": [],
+      "motion_prompt": "waves lap against the shore, clouds drift, figures walk slowly, camera static",
+      "camera": "pan_left",
+      "narration": "በጦርነትና በችግር ዘመን፣ እነዚህ ቅርሶች ወደ ደሴቶቹ ተወስደው ተጠብቀዋል። ማዕበሉ አላጠፋቸውም።",
+      "subtitle_en": "In times of war and hardship, these treasures were carried to the islands and kept safe. The waves did not erase them.",
+      "seed": 2007,
+      "render": "kenburns",
+      "music_cue": "m3"
+    },
+    {
+      "id": "s08",
+      "reason": "Handover to today: a young Ethiopian looking at the paintings puts the audience inside the story.",
+      "era": "present",
+      "shot_size": "medium",
+      "duration_s": 8,
+      "image_prompt": "a young Ethiopian woman in a white netela scarf seen from behind, quietly looking at the colourful painted wall of a round island church",
+      "refs": ["ref_monastery"],
+      "motion_prompt": "she slowly raises her head toward the paintings, camera gently pushes in",
+      "camera": "push_in",
+      "narration": "ዛሬ ይህ አደራ በእኛ እጅ ነው። ማወቅ፣ ማክበርና መጠበቅ የእኛ ድርሻ ነው።",
+      "subtitle_en": "Today this trust is in our hands. To know it, honour it and protect it is our part.",
+      "seed": 2008,
+      "render": "wan",
+      "music_cue": "m4"
+    },
+    {
+      "id": "s09",
+      "reason": "Closing image and call to action: the lake at sunset echoes the opening and delivers the title line.",
+      "era": "present",
+      "shot_size": "extreme_wide",
+      "duration_s": 10,
+      "image_prompt": "Lake Tana at sunset, gentle waves catching orange light, silhouette of a forested island with a monastery on the horizon",
+      "refs": ["ref_lake"],
+      "motion_prompt": "gentle waves roll toward the camera, sun slowly sinks, camera slowly pulls back",
+      "camera": "pull_out",
+      "narration": "ጣና ውብ ሐይቅ ብቻ አይደለም። በማዕበል ያልጠፋ ታሪክ ነው። ለመጪው ትውልድ እንጠብቀው።",
+      "subtitle_en": "Tana is not only a beautiful lake. It is a story the waves could not erase. Let us protect it for those who come next.",
+      "seed": 2009,
+      "render": "wan",
+      "music_cue": "m4"
+    }
+  ],
+  "music": {
+    "caption": "instrumental, calm Ethiopian-inspired cinematic underscore, soft krar-like plucked strings, warm low strings pad, gentle washint-like flute in the pauses, sparse, reverent, spacious, no drums, no vocals",
+    "bpm": 66,
+    "key": "D minor",
+    "volume_db": -6,
+    "chosen": null,
+    "ducking": {"threshold": 0.02, "ratio": 6, "attack_ms": 300, "release_ms": 1500},
+    "cues": [
+      {"id": "m1", "from_shot": "s01", "to_shot": "s02", "intent": "Open quietly with the dawn; sparse plucked notes, sense of space."},
+      {"id": "m2", "from_shot": "s03", "to_shot": "s05", "intent": "Discovery and wonder as the monasteries appear; strings pad enters."},
+      {"id": "m3", "from_shot": "s06", "to_shot": "s07", "intent": "Weight of history and hardship; lower, darker, slower."},
+      {"id": "m4", "from_shot": "s08", "to_shot": "s09", "intent": "Hope and handover; the opening motif returns, warmer, then resolves."}
+    ]
+  }
+}

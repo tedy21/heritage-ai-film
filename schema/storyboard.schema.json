@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/tedy21/heritage-ai-film/schema/storyboard.schema.json",
+  "title": "Heritage Short storyboard (the contract between every pipeline stage)",
+  "type": "object",
+  "required": ["meta", "references", "shots", "music"],
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["title_am", "title_en", "language", "audience", "intent", "style_block", "reconstruction_block", "negative_block", "models", "narration_voice", "fps"],
+      "additionalProperties": false,
+      "properties": {
+        "title_am": {"type": "string", "minLength": 1},
+        "title_en": {"type": "string", "minLength": 1},
+        "logline": {"type": "string"},
+        "language": {"type": "string", "description": "BCP-47 code of the narration language, e.g. am-ET"},
+        "audience": {"type": "string", "minLength": 10},
+        "intent": {"type": "string", "minLength": 10},
+        "style_block": {"type": "string", "minLength": 10, "description": "Appended to every present-day image prompt"},
+        "reconstruction_block": {"type": "string", "minLength": 10, "description": "Appended to every era=reconstruction image prompt"},
+        "negative_block": {"type": "string"},
+        "fps": {"type": "integer", "enum": [24, 25, 30]},
+        "models": {
+          "type": "object",
+          "required": ["text", "tts", "image", "image_fallback"],
+          "additionalProperties": false,
+          "properties": {
+            "text": {"type": "string"},
+            "tts": {"type": "string"},
+            "image": {"type": "string"},
+            "image_fallback": {"type": "string"},
+            "video": {"type": "string"},
+            "music": {"type": "string"}
+          }
+        },
+        "narration_voice": {
+          "type": "object",
+          "required": ["voice", "style"],
+          "additionalProperties": false,
+          "properties": {
+            "voice": {"type": "string", "description": "Gemini prebuilt voice name"},
+            "style": {"type": "string", "description": "Plain-language delivery instruction"}
+          }
+        },
+        "end_card": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+      }
+    },
+    "references": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "purpose", "prompt", "seed"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^ref_[a-z0-9_]+$"},
+          "purpose": {"type": "string"},
+          "prompt": {"type": "string", "minLength": 10},
+          "seed": {"type": "integer", "minimum": 0},
+          "candidates": {"type": "integer", "minimum": 1, "maximum": 8, "default": 1},
+          "chosen": {"type": "integer", "minimum": 0, "description": "Index of the approved candidate (the golden reference)"}
+        }
+      }
+    },
+    "shots": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["id", "reason", "era", "shot_size", "duration_s", "image_prompt", "motion_prompt", "camera", "narration", "subtitle_en", "seed", "render"],
+        "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "pattern": "^s[0-9]{2}$"},
+          "reason": {"type": "string", "minLength": 10, "description": "Why this shot exists, in one sentence"},
+          "era": {"enum": ["present", "reconstruction"]},
+          "shot_size": {"enum": ["extreme_wide", "wide", "medium", "medium_close", "close_up", "extreme_close_up", "insert"]},
+          "duration_s": {"type": "number", "minimum": 3, "maximum": 15, "description": "Minimum on-screen time; stretched if narration is longer"},
+          "image_prompt": {"type": "string", "minLength": 10},
+          "refs": {"type": "array", "items": {"type": "string", "pattern": "^ref_[a-z0-9_]+$"}},
+          "motion_prompt": {"type": "string", "description": "Wan 2.2 i2v prompt: motion and camera only"},
+          "camera": {"enum": ["push_in", "pull_out", "pan_left", "pan_right", "tilt_up", "tilt_down", "static"], "description": "Ken Burns move used when no clip exists"},
+          "narration": {"type": "string", "description": "Narration line in meta.language (may be empty for a breath shot)"},
+          "subtitle_en": {"type": "string"},
+          "seed": {"type": "integer", "minimum": 0},
+          "render": {"enum": ["wan", "kenburns"], "description": "Preferred renderer; kenburns is always the fallback"},
+          "overlay_title": {"type": "boolean"},
+          "music_cue": {"type": "string"}
+        }
+      }
+    },
+    "music": {
+      "type": "object",
+      "required": ["cues", "caption", "bpm", "key", "volume_db"],
+      "additionalProperties": false,
+      "properties": {
+        "caption": {"type": "string", "description": "ACE-Step caption: style, mood, instruments, texture"},
+        "bpm": {"type": "integer", "minimum": 40, "maximum": 200},
+        "key": {"type": "string"},
+        "volume_db": {"type": "number", "maximum": 0},
+        "chosen": {"type": ["string", "null"], "description": "Path (relative to repo) of the chosen score; null = temp pad"},
+        "ducking": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "threshold": {"type": "number"}, "ratio": {"type": "number"},
+            "attack_ms": {"type": "number"}, "release_ms": {"type": "number"}
+          }
+        },
+        "cues": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "from_shot", "to_shot", "intent"],
+            "additionalProperties": false,
+            "properties": {
+              "id": {"type": "string"},
+              "from_shot": {"type": "string", "pattern": "^s[0-9]{2}$"},
+              "to_shot": {"type": "string", "pattern": "^s[0-9]{2}$"},
+              "intent": {"type": "string"}
+            }
+          }
+        }
+      }
+    }
+  }
+}
