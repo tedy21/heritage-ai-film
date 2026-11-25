@@ -23,7 +23,7 @@ setup:
 	@command -v ffmpeg >/dev/null || (echo "ffmpeg is required (apt install ffmpeg)" && exit 1)
 
 validate: setup
-	$(PYBIN) -m pipeline.validate
+	$(PYBIN) -m pipeline.validate $(if $(STRICT),--strict,)
 
 smoke: setup
 	$(PYBIN) -m pipeline.smoke_test

@@ -119,11 +119,27 @@ def export(sb: dict, tl: dict, aspect: str, mix: Path, srt: Path, segments: list
 
 
 def _black(sb: dict, tl: dict) -> Path:
+    """Black picture for the radio cut, with the film title (Amharic + English)
+    centred above the subtitle area so testers know what they're watching."""
+    from .common import FONT_ETHIOPIC, FONT_LATIN
     w, h = shots_mod.ASPECTS["16x9"]
-    black = OUT / "final" / f".black-{tl['total']}.mp4"
+    titles = [sb["meta"]["title_am"], sb["meta"]["title_en"]]
+    black = OUT / "final" / f".black-{stable_hash(tl['total'], titles, 'title-v1')}.mp4"
     if not black.exists():
+        d = OUT / "final"
+        (d / ".title_am.txt").write_text(titles[0], encoding="utf-8")
+        (d / ".title_en.txt").write_text(titles[1], encoding="utf-8")
+        fq = shots_mod.fq
+        vf = (f"drawtext=fontfile={fq(FONT_ETHIOPIC)}:textfile={fq(d / '.title_am.txt')}:fontsize=64:"
+              f"fontcolor=white:x=(w-tw)/2:y=h*0.36-th,"
+              f"drawtext=fontfile={fq(FONT_LATIN)}:textfile={fq(d / '.title_en.txt')}:fontsize=28:"
+              f"fontcolor=white@0.75:x=(w-tw)/2:y=h*0.36+24,"
+              f"fade=t=in:st=0:d=1")
         ffmpeg("-f", "lavfi", "-i", f"color=c=black:s={w}x{h}:d={tl['total']}:r={sb['meta']['fps']}",
-               "-c:v", "libx264", "-preset", "veryfast", "-crf", "30", "-pix_fmt", "yuv420p", str(black))
+               "-vf", vf, "-c:v", "libx264", "-preset", "veryfast", "-crf", "28", "-pix_fmt", "yuv420p", str(black))
+        for old in d.glob(".black-*.mp4"):
+            if old != black:
+                old.unlink()
     return black
 
 

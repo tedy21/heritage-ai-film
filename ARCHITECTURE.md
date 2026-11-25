@@ -1,25 +1,57 @@
 # ARCHITECTURE
 
-## One contract, five stages
+## The big picture
+
+```mermaid
+flowchart TD
+    SB(📄 Storyboard<br/>the plan) --> CHK{✅ Validator<br/>schema + rules}
+    CHK -->|errors| STOP(⛔ Stop<br/>no AI calls made)
+    CHK -->|valid| V(🎙️ Voice<br/>Gemini TTS)
+    CHK -->|valid| I(🖼️ Images<br/>FLUX)
+    CHK -->|valid| MU(🎵 Music<br/>ACE-Step)
+    I --> VID(🎬 Video clips<br/>Wan 2.2)
+    V --> E(✂️ Edit<br/>FFmpeg)
+    VID --> E
+    MU --> E
+    E --> F(🎞️ Final film<br/>wide + tall)
+
+    classDef plan fill:#cdeefd,stroke:#333,color:#000
+    classDef ai fill:#d4f5d4,stroke:#333,color:#000
+    classDef gpu fill:#ffe6b3,stroke:#333,color:#000
+    classDef edit fill:#ffb3cc,stroke:#333,color:#000
+    classDef out fill:#b3f0e6,stroke:#333,color:#000
+    classDef check fill:#fff7b3,stroke:#333,color:#000
+    classDef stop fill:#ffcccc,stroke:#333,color:#000
+    class SB plan
+    class CHK check
+    class STOP stop
+    class V,I ai
+    class MU,VID gpu
+    class E edit
+    class F out
 ```
-                       schema/storyboard.schema.json
-                                   │ validates (every stage, before any call)
-                                   ▼
-                            storyboard.json  ◄── the only thing a human edits
-      ┌──────────────┬─────────────┼───────────────┬──────────────────┐
-      ▼              ▼             ▼               ▼                  │
-  narration      keyframes       clips           music                │
-  Gemini TTS     refs → FLUX     Wan 2.2 (Kaggle) ACE-Step (Kaggle)    │
-  outputs/       outputs/refs    outputs/clips   outputs/music        │
-  narration/     outputs/keyframes                                    │
-      │              │             │               │                  │
-      └──────┬───────┴─────────────┴───────────────┘                  │
-             ▼                                                        │
-        assemble (FFmpeg, deterministic) ◄────────────────────────────┘
-        timeline → segments (Ken Burns | clip) → subtitles → mix (duck + loudnorm) → export ×2
-             ▼
-        outputs/final/tana_16x9.mp4, tana_9x16.mp4        runs.jsonl ← one line per call, every stage
-```
+
+| Step | What it does | Tool | Runs on |
+|---|---|---|---|
+| 📄 **Storyboard** | One file that describes the whole film: shots, Amharic narration, subtitles, image ideas, music style. The only file a person edits. | `storyboard.json` | — |
+| ✅ **Validator** | Checks the storyboard before anything runs: the **schema** (right fields and types, 8–12 shots) and the **rules from the brief** (60–90 s, every shot has a reason, subtitles for every line, an AI end card, music cues covering every shot…). Errors stop the run **before any AI call**, so no quota is wasted. | `pipeline/rules.py`, `make validate` | Laptop |
+| 🎙️ **Voice** | Turns the Amharic lines into speech and measures how long each line is. | Gemini TTS | Laptop (API) |
+| 🖼️ **Images** | Makes one still picture per shot, all in the same style. | FLUX on Cloudflare | Laptop (API) |
+| 🎬 **Video clips** | Makes the still pictures move. If it fails, a slow zoom is used instead. | Wan 2.2 | Kaggle GPU |
+| 🎵 **Music** | Makes 3 music options; I choose one by ear. | ACE-Step | Kaggle GPU |
+| ✂️ **Edit** | Puts it all together: timing from the voice, music quieter under the voice, subtitles, AI labels, end card. | FFmpeg | Laptop |
+| 🎞️ **Final film** | Two versions: wide (YouTube) and tall (TikTok/Shorts). | — | — |
+
+**Three ideas behind it**
+1. **One plan file controls everything, and it's checked first.** The validator rejects a broken plan before any AI is called. Change a sentence in the storyboard, run `make film`, and only that part is rebuilt (caching).
+2. **Plan for failure.** If a service is busy it retries or uses a backup model, and if video fails the film still gets made.
+3. **Everything is logged.** Every AI call is written to `runs.jsonl` (model, time, result), so cost and speed are measured, not guessed.
+
+> The **radio cut** (`make radio`) is the same pipeline with only Voice + Music + Edit, on a black screen, to test the story before making any pictures.
+
+---
+
+## Details
 
 | Stage | Script | Reads from storyboard | Writes | Runs on |
 |---|---|---|---|---|
@@ -34,7 +66,9 @@
 `make radio` = narration → assemble `--radio` (black picture, Phase 1 prototype).
 
 ## Contracts
-- **storyboard.json** is validated twice before any model call: by JSON Schema (types, enums, 8–12 shots, required `reason` per shot), then by semantic checks in `common._semantic_checks` (unique ids, references exist, music cues point to real shots, narration has a subtitle).
+- **storyboard.json** is validated in two layers before any model is called:
+  1. **Schema** (`schema/storyboard.schema.json`): the *shape* (types, required fields, 8–12 shots, every shot has a `reason`, allowed values).
+  2. **Rules from the brief** (`pipeline/rules.py`): what the specification *asks for*. **Errors stop the run**: film longer than 90 s, shot ids not s01…sNN, a reason too short to explain the shot, narration without a subtitle, an end card that doesn't say "AI", music cues that don't cover every shot exactly once, unknown references, a missing chosen score. **Warnings are printed**: text requested inside images, a TTS style instruction (F15), tempo/key in the music caption, no "instrumental", fewer than 3 shot sizes, long motion prompts, unused references, reconstruction shots not mentioned on the end card. Each finding names the part of the brief it comes from. `make validate` prints the report; `make validate STRICT=1` fails on warnings too. Tested in `tests/test_rules.py`.
 - **Manifests** (`outputs/narration/manifest.json`, `outputs/keyframes/manifest.json`, `outputs/final/timeline.json`) are the hand-off between stages. Assembly reads only manifests and the storyboard, never a model.
 - **GPU stages** live on Kaggle because that is where the free GPU is. Their contract is a file drop: `outputs/clips/<shot>.mp4` and `music.chosen`, plus `timings.json`, which `make import-gpu` appends to runs.jsonl.
 

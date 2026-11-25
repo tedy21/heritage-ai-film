@@ -81,27 +81,14 @@ def load_storyboard(path: Path = STORYBOARD) -> dict:
 
 
 def _semantic_checks(sb: dict) -> None:
-    """Rules JSON Schema can't express: unique ids, refs that exist, cue ranges."""
-    problems = []
-    ids = [s["id"] for s in sb["shots"]]
-    if len(ids) != len(set(ids)):
-        problems.append("shot ids are not unique")
-    ref_ids = {r["id"] for r in sb["references"]}
-    for s in sb["shots"]:
-        for r in s.get("refs", []):
-            if r not in ref_ids:
-                problems.append(f"{s['id']} refers to unknown reference {r}")
-        if s["narration"].strip() and not s["subtitle_en"].strip():
-            problems.append(f"{s['id']} has narration but no English subtitle")
-    for c in sb["music"]["cues"]:
-        for k in ("from_shot", "to_shot"):
-            if c[k] not in ids:
-                problems.append(f"music cue {c['id']} {k}={c[k]} is not a shot id")
-    for r in sb["references"]:
-        if r.get("chosen", 0) >= r.get("candidates", 1):
-            problems.append(f"{r['id']} chosen index is out of range")
-    if problems:
-        sys.exit("storyboard.json failed semantic checks:\n" + "\n".join("  - " + p for p in problems))
+    """Rules from the brief that JSON Schema can't express (pipeline/rules.py).
+    Errors stop the run before any model is called; warnings are left to
+    `make validate`, so every stage doesn't repeat them."""
+    from . import rules
+    errs = rules.errors(rules.check(sb))
+    if errs:
+        sys.exit("storyboard.json breaks the brief's rules:\n" + "\n".join("  " + str(e) for e in errs)
+                 + "\n(run `make validate` for details and warnings)")
 
 
 # ---------------------------------------------------------------- hashing / cache
