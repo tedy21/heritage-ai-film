@@ -213,6 +213,45 @@ def with_retries(call: Call, fn: Callable[[], Any], *, max_attempts: int = 3,
     raise last_err  # type: ignore[misc]
 
 
+class AllModelsFailed(RuntimeError):
+    pass
+
+
+def with_fallbacks(stage: str, item: str, provider: str, models: list[str], params: dict,
+                   fn: Callable[[str], Any], *, seed: int | None = None,
+                   cost_usd_equiv: float = 0.0, output: Path | None = None,
+                   attempts_per_model: int = 2, base_delay: float = 4.0) -> tuple[Any, str]:
+    """Try each model in order. Each model gets a short retry budget (for
+    momentary 429/503s); if it still fails, move on to the next model instead
+    of stopping the run (graceful degradation). Every attempt is logged; a
+    success on a backup model carries `fallback_from` = the primary.
+    Returns (result, model_that_succeeded)."""
+    errors = []
+    primary = models[0]
+    for i, model in enumerate(models):
+        last = i == len(models) - 1
+        p = dict(params, fallback_from=primary) if i else dict(params)
+        call = Call(stage, item, provider, model, p, seed)
+        try:
+            result = with_retries(call, lambda m=model: fn(m),
+                                  max_attempts=attempts_per_model + (1 if last else 0),
+                                  base_delay=base_delay, cost_usd_equiv=cost_usd_equiv, output=output)
+            if i:
+                print(f"  [{stage}:{item}] succeeded on fallback model {model} (primary {primary} failed)")
+            return result, model
+        except Exception as e:  # noqa: BLE001 - any failure -> next model
+            errors.append(f"{model}: {str(e)[:160]}")
+            if not last:
+                print(f"  [{stage}:{item}] {model} failed; falling back to {models[i + 1]}")
+    raise AllModelsFailed(f"{stage}:{item} failed on every model: " + " | ".join(errors))
+
+
+def model_chain(models: dict, kind: str) -> list[str]:
+    """Primary model followed by its fallbacks, de-duplicated, from the storyboard."""
+    chain = [models[kind], *models.get(f"{kind}_fallbacks", [])]
+    return list(dict.fromkeys(chain))
+
+
 def log_cache_hit(call: Call, output: Path) -> None:
     log_event(call, status="ok", latency_s=0.0, cache_hit=True, output=str(output))
 

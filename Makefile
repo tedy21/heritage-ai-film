@@ -4,7 +4,7 @@ PY ?= python3
 PYBIN = $(shell if [ -x .venv/bin/python ]; then echo .venv/bin/python; else echo $(PY); fi)
 export PYTHONPATH := $(CURDIR)
 
-.PHONY: help setup validate smoke narration keyframes radio film shot costs offline clean-cache import-gpu kaggle-input
+.PHONY: help setup validate smoke narration keyframes radio film shot costs offline clean-cache import-gpu kaggle-input test
 
 help:
 	@echo "make setup      create .venv and install requirements"
@@ -61,3 +61,6 @@ import-gpu: setup
 
 kaggle-input:
 	zip -qr kaggle_in.zip storyboard.json outputs/keyframes && echo "upload kaggle_in.zip as a Kaggle dataset"
+
+test:
+	$(PY) -m unittest discover -s tests -v

@@ -14,8 +14,8 @@ from pathlib import Path
 
 from . import pricing
 from .common import (OUT, STAGE_VERSION, Call, cached_path, duration, ffmpeg, load_env,
-                     load_storyboard, log_cache_hit, log_event, offline, prune,
-                     require_env, selected_shots, stable_hash, with_retries)
+                     load_storyboard, log_cache_hit, log_event, model_chain, offline, prune,
+                     require_env, selected_shots, stable_hash, with_fallbacks)
 
 
 def _write_wav(path: Path, pcm: bytes, rate: int) -> None:
@@ -39,9 +39,12 @@ def narrate_shot(sb: dict, shot: dict) -> Path | None:
     if not text:
         return None
     m = sb["meta"]
-    model = "offline-silence" if offline() else m["models"]["tts"]
+    chain = ["offline-silence"] if offline() else model_chain(m["models"], "tts")
+    model = chain[0]
     voice = m["narration_voice"]
-    key = stable_hash(STAGE_VERSION["narration"], text, voice, model)
+    # Key on the whole chain: if a line was made by a fallback, a later run
+    # (when the primary has recovered) keeps it instead of regenerating.
+    key = stable_hash(STAGE_VERSION["narration"], text, voice, chain)
     out = cached_path("narration", shot["id"], key, "wav")
     call = Call("narration", shot["id"], "offline" if offline() else "gemini", model,
                 {"voice": voice["voice"], "style": voice["style"], "chars": len(text)})
@@ -55,19 +58,22 @@ def narrate_shot(sb: dict, shot: dict) -> Path | None:
         t0 = time.time()
         ffmpeg("-f", "lavfi", "-i", f"anoisesrc=d={secs}:c=pink:a=0.02", "-ar", "48000", "-ac", "1", str(out))
         log_event(call, status="ok", latency_s=time.time() - t0, cache_hit=False, output=str(out))
+        out.with_suffix(".json").write_text(json.dumps({"model": model, "fallback": False}))
         return out
 
     from . import gemini
     raw = out.with_suffix(".raw.wav")
 
-    def go():
-        pcm, rate = gemini.tts(model, f"{voice['style']}\n{text}", voice["voice"])
+    def go(model_id: str):
+        pcm, rate = gemini.tts(model_id, f"{voice['style']}\n{text}", voice["voice"])
         _write_wav(raw, pcm, rate)
         return rate
 
-    with_retries(call, go, max_attempts=4, base_delay=8,
-                 cost_usd_equiv=pricing.tts_cost(0.55 * len(text.split())), output=out)
+    _, used = with_fallbacks("narration", shot["id"], "gemini", chain, call.params, go,
+                             attempts_per_model=2, base_delay=6,
+                             cost_usd_equiv=pricing.tts_cost(0.55 * len(text.split())), output=out)
     _normalise(raw, out)
+    out.with_suffix(".json").write_text(json.dumps({"model": used, "fallback": used != chain[0]}))
     raw.unlink(missing_ok=True)
     prune("narration", shot["id"], out)
     return out
@@ -89,8 +95,11 @@ def main() -> None:
             print(f"  [narration:{shot['id']}] FAILED: {e}")
             failed.append(shot["id"])
             continue
+        side = p.with_suffix(".json") if p else None
+        made_by = json.loads(side.read_text())["model"] if side and side.exists() else None
         manifest[shot["id"]] = {"path": str(p.relative_to(OUT.parent)) if p else None,
-                                "duration_s": round(duration(p), 3) if p else 0.0}
+                                "duration_s": round(duration(p), 3) if p else 0.0,
+                                "model": made_by}
     valid_ids = {s["id"] for s in sb["shots"]}
     manifest = {k: v for k, v in manifest.items() if k in valid_ids}
     manifest_path.parent.mkdir(parents=True, exist_ok=True)

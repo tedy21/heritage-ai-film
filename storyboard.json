@@ -11,8 +11,10 @@
     "negative_block": "text, letters, captions, watermark, logo, modern clothing brands, plastic, distorted hands, extra fingers, deformed face",
     "fps": 24,
     "models": {
-      "text": "gemini-3.8-flash",
+      "text": "gemini-3.5-flash",
+      "text_fallbacks": ["gemini-3.8-flash", "gemini-flash-latest", "gemini-2.5-flash"],
       "tts": "gemini-3.8-flash-tts",
+      "tts_fallbacks": ["gemini-3.8-flash-lite-tts", "gemini-2.5-flash-preview-tts"],
       "image": "@cf/black-forest-labs/flux-2-klein-4b",
       "image_fallback": "@cf/black-forest-labs/flux-1-schnell",
       "video": "Wan-AI/Wan2.2-TI2V-5B-Diffusers",

@@ -5,9 +5,9 @@ Everything runs on free tiers, so the actual cost is **$0**. The table below com
 ## Free-tier limits found (fill in from the smoke test and dashboards)
 | Provider | What I found on 25 Nov 2026 | Hit it? |
 |---|---|---|
-| Gemini API (text + TTS) | _TODO: RPM / RPD shown in AI Studio_ | |
-| Cloudflare Workers AI | _TODO: daily free neurons; images per day in practice_ | |
-| Kaggle GPU | _TODO: weekly GPU hours shown_ | |
+| Gemini API (text + TTS) | Smoke test 25 Nov: TTS `gemini-3.8-flash-tts` 3.2–4.2 s per short line; text `gemini-3.8-flash` 503 "high demand" (twice), `gemini-3.5-flash` 2.0 s. Listing models took 30 s once. _TODO: RPM/RPD from AI Studio_ | 503 overload (not quota) |
+| Cloudflare Workers AI | Smoke test 25 Nov (512×512): FLUX.1 schnell 2.3 s, FLUX.2 klein 4B 5.3–9.2 s. _TODO: daily free neurons used_ | No |
+| Kaggle GPU | 30 h/week shown; 00:35 used after ACE-Step setup + 2 runs. Working disk 19.5 GiB (ACE-Step env + models filled 17.2 GiB) | Disk nearly |
 
 ## Per-stage measurements
 _Paste `make costs` output here after the final run._

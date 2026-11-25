@@ -58,7 +58,8 @@ Old entries for the same item are pruned so `outputs/` holds only the current ve
 |---|---|
 | Broken storyboard | Fails before any call, with the JSON path of every error |
 | HTTP 429 / 5xx / timeout / empty TTS response | `with_retries`: exponential backoff (4 s, 8 s, 16 s…), max 3–4 attempts, one log line with `attempts` |
-| HTTP 4xx (bad key, bad model id) | Fail fast (retrying will not help), logged with the error |
+| HTTP 4xx (bad key, bad model id) | Fail fast (retrying will not help), logged with the error, then the next model in the chain |
+| A model stays overloaded (503) or out of quota (429) | **Model fallback chain** (`common.with_fallbacks`): each model in `meta.models.{text,tts}` + `*_fallbacks` gets 2 attempts, then the next one is tried. A backup success is logged with `fallback_from`; the sidecar `<file>.json` records which model made each narration line. The cache key covers the whole chain, so a line made by a backup is not regenerated when the primary recovers. Tested in `tests/test_fallbacks.py` (`make test`). |
 | Primary image model fails | Automatic fallback to `meta.models.image_fallback` (text-only), logged with `fallback_from` |
 | No Wan clip for a shot / clip failed | Ken Burns move over the keyframe (always available) |
 | No chosen score yet | Clearly-labelled temp pad from FFmpeg |

@@ -30,6 +30,8 @@
             "tts": {"type": "string"},
             "image": {"type": "string"},
             "image_fallback": {"type": "string"},
+            "text_fallbacks": {"type": "array", "items": {"type": "string"}, "description": "Tried in order if the primary text model fails (overload/quota/unknown id)"},
+            "tts_fallbacks": {"type": "array", "items": {"type": "string"}, "description": "Tried in order if the primary TTS model fails; voice timbre may differ slightly"},
             "video": {"type": "string"},
             "music": {"type": "string"}
           }

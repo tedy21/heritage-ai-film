@@ -8,7 +8,7 @@ from __future__ import annotations
 import os
 import time
 
-from .common import OUT, Call, load_env, load_storyboard, log_event, with_retries
+from .common import OUT, Call, load_env, load_storyboard, log_event, model_chain, with_fallbacks, with_retries
 
 
 def main() -> None:
@@ -37,17 +37,19 @@ def main() -> None:
         except Exception as e:
             results["gemini-list"] = repr(e)
         try:
-            text, _ = with_retries(Call("smoke", "gemini-text", "gemini", models["text"], {"prompt": "hello"}),
-                                   lambda: gemini.generate_text(models["text"], "Reply with the single Amharic word for 'lake'."))
-            results["gemini-text"] = text.strip()
+            (text, _), used = with_fallbacks("smoke", "gemini-text", "gemini", model_chain(models, "text"),
+                                             {"prompt": "lake"},
+                                             lambda m: gemini.generate_text(m, "Reply with only the Amharic word for 'lake'."))
+            results["gemini-text"] = f"{text.strip()} (via {used})"
         except Exception as e:
             results["gemini-text"] = f"FAILED {e!r}"
         try:
             from .narration import _write_wav
-            pcm, rate = with_retries(Call("smoke", "gemini-tts", "gemini", models["tts"], {"voice": "Charon"}),
-                                     lambda: gemini.tts(models["tts"], "ሰላም። ይህ ሙከራ ነው።", "Charon"))
+            (pcm, rate), used = with_fallbacks("smoke", "gemini-tts", "gemini", model_chain(models, "tts"),
+                                               {"voice": "Charon"},
+                                               lambda m: gemini.tts(m, "ሰላም። ይህ ሙከራ ነው።", "Charon"))
             _write_wav(out / "tts_smoke.wav", pcm, rate)
-            results["gemini-tts"] = f"ok {len(pcm) / 2 / rate:.1f}s audio at {rate} Hz"
+            results["gemini-tts"] = f"ok {len(pcm) / 2 / rate:.1f}s audio at {rate} Hz (via {used})"
         except Exception as e:
             results["gemini-tts"] = f"FAILED {e!r}"
     else:

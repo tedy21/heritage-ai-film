@@ -47,7 +47,9 @@ def generate(model: str, prompt: str, *, seed: int, width: int = 1024, height: i
                 form[f"input_image_{i}"] = (ref.name, ref.read_bytes(), "image/jpeg")
             r = requests.post(_url(model), headers=_auth(), files=form, timeout=180)
         else:
-            body = {"prompt": prompt, "steps": min(steps, 8), "seed": seed}
+            # Cloudflare's flux-1-schnell schema rejects `seed` (HTTP 400, see FAILURES F11),
+            # so schnell fallback images are NOT seed-reproducible.
+            body = {"prompt": prompt, "steps": min(steps, 8)}
             r = requests.post(_url(model), headers=_auth(), json=body, timeout=180)
     except requests.RequestException as e:
         raise RetryableError(str(e))

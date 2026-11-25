@@ -51,3 +51,14 @@ Format: **symptom → cause → what I tried → fix / workaround → evidence**
 - **Cause:** the notebook's Persistence was "No persistence", so `/kaggle/working` is wiped when the session ends. Outputs can only be downloaded from a running session or a saved version.
 - **Fix:** set Persistence to "Files only"; zip the results and download them with `FileLink` *before* stopping; regenerate with the **same seeds**, which is why seeds are logged.
 - **Lesson:** treat cloud GPU sessions as disposable; copy outputs off the machine as the last step of every run.
+
+### F11. FLUX.1 schnell on Cloudflare rejects a seed (25 Nov, smoke test)
+- **Symptom:** `HTTP 400 … Additional or unevaluated properties '/seed' at '/' not allowed` (code 5006).
+- **Cause:** Cloudflare's input schema for `@cf/black-forest-labs/flux-1-schnell` has no `seed` field (FLUX.2 klein accepts one).
+- **Fix:** don't send `seed` to schnell. **Consequence:** fallback images from schnell are not seed-reproducible; the seed is still logged, and the image file itself is the reproducible artefact. Klein (the primary) stays seeded.
+- **Found by:** `make smoke` (run `smoke1`), before any real generation.
+
+### F12. Gemini 3.8 Flash text returned 503 "high demand" (25 Nov, smoke test)
+- **Symptom:** HTTP 503 UNAVAILABLE on 3 attempts in two separate runs (`smoke1`, `smoke2`); the retry/backoff worked as designed but the spike outlasted it.
+- **Workaround:** switched `meta.models.text` to `gemini-3.5-flash`, which answered in 2.0 s (correct Amharic "ሐይቅ" for "lake"). Text is only used for drafting/translation help, so no film output depends on the 3.8 text model. TTS (`gemini-3.8-flash-tts`) was unaffected.
+- **Lesson:** keep the model id in the storyboard, not the code, so swapping models is a one-line contract change.
