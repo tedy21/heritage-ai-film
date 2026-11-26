@@ -12,7 +12,7 @@
 | **Constraints** | 60–90 s, Amharic narration + English subtitles, zero budget (free tiers), about 1.5 days, no real person shown or voiced. |
 
 ## Why this story matters to me
-_TODO (user, 2–3 sentences): your personal or family connection to Lake Tana. This also opens the public post._
+I love the title "Tana: A Story That Outlasted the Waves" because it makes me wonder how many stories this beautiful lake holds. To me, Lake Tana is not just a lake; it is a place full of history, memories, culture, and traditions that have survived for generations. I find that really special, and I feel excited to explore these stories and share them with others through this film.
 
 ## Story in five sentences
 1. At dawn, Lake Tana wakes; it is Ethiopia's largest lake and the source of the Blue Nile.
@@ -65,16 +65,16 @@ The chosen ACE-Step track is shaped per cue (`gain_db`, 1.5 s ramps) and ducked 
 Prompt lesson: the word "twaf" alone gave ordinary separate candles; describing the object's shape (one grooved stick, "two sticks fused together") gave the joined tapers.
 
 ## User test 1 — radio cut (narration + temp music on black)
-_Date / where:_ · _People (≥3, from the audience; first names or roles only):_
+_Date / where:_ before the narration fixes of 25 Nov; exact time and listening setup not recorded · _People:_ 3 listeners (roles not recorded). Recorded on 26 Nov.
 
 | Person (role) | What they said / where they reacted | What we change |
 |---|---|---|
-| | | |
-| | | |
-| | | |
+| First listener | The overall audio was too long | Reviewed timing and pacing: text-only batched narration and a 0.45 s pause cap; radio cut 172 s → 79.5 s (F14, E5, E5b) |
+| Second listener | English audio sometimes appeared at the end of every sentence, interrupting the Amharic | Removed the English style instruction sent to TTS (`narration_voice.style` is now empty); only Amharic text is sent (F15, E5c) |
+| Third listener | Some Amharic sentences lacked natural flow and coherence | Rewrote narration lines in `storyboard.json` (s02–s07, s09), with further wording passes on s02, s03 and s06 |
 
-**Insights:**
-**Storyboard changes (commit / diff):**
+**Insights:** listeners caught problems that the automated checks missed (spoken English, unnatural Amharic). Length, language purity and phrasing had to be settled before spending on pictures.
+**Storyboard changes (commit / diff):** `521533c` (empty TTS style, pause cap, rewritten lines), `f538222` (s02, s03), `2c432f6` (s06). See `git show <commit> -- storyboard.json`.
 
 ## User test 2 — near-final cut
 _Date / where:_ · _People (≥3):_

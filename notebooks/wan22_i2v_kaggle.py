@@ -14,6 +14,7 @@
 # signature so the first run tells us which works (record it in FAILURES.md).
 
 # %%
+import os; os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"  # less fragmentation (F19)
 !pip install -q git+https://github.com/huggingface/diffusers transformers accelerate ftfy imageio imageio-ffmpeg
 import diffusers, torch; print(diffusers.__version__, torch.__version__, torch.cuda.get_device_name(0))
 
@@ -46,7 +47,8 @@ except Exception as e:
     from diffusers import WanPipeline
     pipe = WanPipeline.from_pretrained(MODEL, vae=vae, torch_dtype=DTYPE)
     mode = "WanPipeline"
-pipe.enable_model_cpu_offload()
+# model offload OOMed on a 15 GB T4 (F19); sequential offload: ~25 s/step, ~25 min/shot, 2.7 GB peak
+pipe.enable_sequential_cpu_offload()
 try:
     pipe.vae.enable_tiling()
 except Exception:

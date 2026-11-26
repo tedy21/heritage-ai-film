@@ -38,8 +38,8 @@
 - [x] 2.1 s02 (ውስጥ → ላይ), s03 (drop "older than the lake"), s06 (ጧፍ, ፊደል በፊደል በብራና ላይ)
 - [x] 2.2 Clean Amharic narration (batched TTS, no English spoken) + script check 9/9, no notes
 - [x] 2.3 Radio cut rebuilt with the final words (80.8 s)
-- [ ] 2.4 **You:** user test 1, play `radio_cut.mp4` to 3+ people, send their answers
-- [ ] 2.5 Claude: write test 1 into DESIGN.md + make 1 storyboard change from it
+- [x] 2.4 **You:** user test 1 with 3 listeners, answers sent
+- [x] 2.5 Claude: write test 1 into DESIGN.md + link the storyboard changes made from it
 - Done when: `make status` shows user test 1 = 3/3
 
 **Phase 3: Pictures** ✅
@@ -48,19 +48,17 @@
 - [x] 3.3 Rough cut, both ratios, Ken Burns (the safety net)
 - [x] 3.4 Export to the brief's spec: −1.5 dBTP (F18), 3 s end card, on-screen tag removed
 
-**Phase 4: Music**
+**Phase 4: Music** ✅
 - [x] 4.1 3 ACE-Step candidates (301–303), spotting notes, per-cue shaping, auditions
-- [x] 4.2 Begena experiment prepared (E13: named vs described caption, seeds 401–403)
-- [ ] 4.3 **You:** Kaggle run for the begena sets, download `music.zip`
-- [ ] 4.4 Claude: import, auditions, measure, write E13
-- [x] 4.5 **You:** choose the score → 302, "the voice is clearest and it feels calm"
-- [x] 4.6 Claude: set `music.chosen`, log E10, rebuild both films
+- [x] 4.2 Begena experiment prepared (E13: named vs described caption, seeds 401–403). Not run: optional, deferred after choosing 302
+- [x] 4.3 **You:** choose the score → 302, "the voice is clearest and it feels calm"
+- [x] 4.4 Claude: set `music.chosen`, log E10, rebuild both films
 - Done when: `make status` shows the score chosen
 
-**Phase 5: Motion** *(tomorrow morning)*
-- [ ] 5.1 Claude: prepare the Kaggle input (keyframes + storyboard), pick 4–6 shots
-- [ ] 5.2 **You:** run the Wan notebook (new notebook, T4), download the zip before stopping
-- [ ] 5.3 Claude: `make import-gpu` → clips replace Ken Burns shot by shot
+**Phase 5: Motion** ✅
+- [x] 5.1 Claude: prepare the Kaggle input (keyframes + storyboard), pick 4–6 shots → kaggle_in.zip; s01, s02, s03, s08, s09
+- [x] 5.2 **You:** run the Wan notebook (new notebook, T4), download the zip before stopping (26 Nov: 5/5 ok after the F19 out-of-memory fix, ~25 min per shot)
+- [x] 5.3 Claude: `make import-gpu` → clips replace Ken Burns shot by shot (13 records incl. 8 OOM errors; 122.7 GPU min in COSTS.md). s03 back to Ken Burns: Wan invented a person (F20). Film: 4 Wan + 5 Ken Burns, 80.8 s, −15.1 LUFS, −2.7 dBTP
 - Done when: GPU minutes appear in COSTS.md (if Wan fails, keep Ken Burns, fix the end card text, log it)
 
 **Phase 6: Polish + evidence**
@@ -71,7 +69,7 @@
 - Done when: experiments 10/10, user test 2 = 3/3
 
 **Phase 7: Write-up** *(tomorrow afternoon)*
-- [ ] 7.1 **You:** 2–3 sentences "why this matters to me" (DESIGN.md)
+- [x] 7.1 **You:** 2–3 sentences "why this matters to me" (DESIGN.md)
 - [ ] 7.2 Claude: draft REPORT.md + final docs + `make costs`; state the coding agent used
 - [ ] 7.3 **You:** make the report personal → export to PDF
 - Done when: `make status` shows the report done

@@ -7,3 +7,6 @@ __pycache__/
 
 # intermediate per-shot clips: rebuilt for free by FFmpeg from keyframes
 outputs/segments/
+
+# upload bundle for the Kaggle GPU notebook (make kaggle-input)
+kaggle_in.zip

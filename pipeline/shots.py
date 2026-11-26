@@ -7,8 +7,9 @@ is rendered:
     first 0.25 s trimmed, gently slowed / held to fill the shot;
   * otherwise -> a Ken Burns move over the keyframe (the always-available
     fallback, also a respectable shot in its own right).
-Reconstruction shots get a warm, desaturated grade, a vignette and an
-"AI reconstruction" tag (meta.reconstruction_tag) so viewers can tell them from present-day scenes.
+Reconstruction shots get a warm, desaturated grade and a vignette so viewers
+can tell them from present-day scenes (plus an "AI reconstruction" tag only if
+meta.reconstruction_tag is true; this film turns it off).
 Segments are cached by hash(source bytes + move + length + grade + aspect).
 """
 from __future__ import annotations
