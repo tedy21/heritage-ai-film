@@ -1,4 +1,16 @@
-# Report — ጣና፡ በማዕበል ያልጠፋ ታሪክ / Tana: A Story That Outlasted the Waves
+<div align="center" class="title" markdown="1">
+
+# Tana: A Story That Outlasted the Waves
+
+### ጣና፡ በማዕበል ያልጠፋ ታሪክ
+
+**Report · B2W0: AI-Content Generation: The Heritage Short**
+
+Tewodros G. Taye · 26 November 2026
+
+</div>
+
+---
 
 80.8 s Amharic heritage short with English subtitles, 9:16 and 16:9. Repository: <https://github.com/tedy21/heritage-ai-film> (`make film` rebuilds both films from a clean clone, no GPU needed). Built 25–26 Nov 2026 at $0 on free tiers (list-price equivalent ≈ $0.86, COSTS.md).
 
