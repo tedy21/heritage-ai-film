@@ -2,12 +2,8 @@
 
 80.8 s Amharic heritage short with English subtitles, 9:16 and 16:9. Repository: <https://github.com/tedy21/heritage-ai-film> (`make film` rebuilds both films from a clean clone, no GPU needed). Built 25–26 Nov 2026 at $0 on free tiers (list-price equivalent ≈ $0.86, COSTS.md).
 
-> **[YOUR WORDS — remove this note when done]** Everything below is drafted from the repository's logs. Read each section, change anything that is not how *you* saw it, and rewrite the marked parts in your own voice. The interview will ask about these points.
-
 ## 1. What I set out to make, and for whom
-I wanted to make a short film about Lake Tana. For me, it is not just a beautiful lake: it is a place full of history, faith and memories that have lasted for generations. I kept asking myself one question: how many stories does this lake hold? So I gave myself one goal. When the film ends, I want people to feel that Lake Tana is part of our memory, and that protecting it is now our part.
-
-**Audience:** young Ethiopians and families at home and in the diaspora, watching on a phone, often with the sound low; secondly, international viewers curious about Ethiopian heritage. I wrote the audience and this goal in DESIGN.md before generating anything.
+I wanted to make a short film about Lake Tana. For me, it is not just a beautiful lake. It is a place full of history, faith and memories that have lasted for generations. I kept asking myself: how many stories does this lake hold? So I gave myself one goal: when the film ends, I want people to feel that Lake Tana is part of our memory, and that protecting it is now our part.
 
 The film moves from the present-day lake (sunrise, tankwa paddlers, a monastery among trees) to what the monasteries hold (wall paintings, manuscripts), then to two AI reconstructions (a scribe working by taper light; monks carrying books to an island in hard times), and back to the present: "today this trust is in our hands".
 
@@ -24,7 +20,7 @@ I tested three times, and each round changed the film (DESIGN.md).
 
 **The main lesson:** listeners caught what my automated checks missed. My transcription check asked for "the language spoken" and silently dropped the English, the exact bug it should have found (F15). Before round 2 I therefore re-checked the final soundtrack with a question aimed at the bug ("list every *spoken* English word"): none. Round 2's "English" comment turned out to be about the subtitles, which are by design.
 
-**[YOUR WORDS]** One sentence on what surprised you most in what people said.
+What surprised me most was that my listeners heard English in the narration. I had not noticed it myself at first, and none of my automatic checks found it.
 
 ## 3. The hardest problem and how I solved it
 **Getting clean, natural Amharic narration that fits 60–90 s** (F13–F17, E5–E5c).
@@ -36,7 +32,7 @@ I tested three times, and each round changed the film (DESIGN.md).
 
 A close second was motion: Wan 2.2 ran out of memory on the 15 GB T4 (8 failed attempts, all logged). Sequential CPU offload fixed it at 2.74 GB peak, but at ~25 min per 4 s clip, 122.7 GPU min in total (F19). Then Wan invented a person in an empty scene, so I dropped that clip and kept the Ken Burns shot (F20).
 
-**[YOUR WORDS]** If you think the motion problem was harder, swap the order and say why.
+The narration was harder for me, because the cause was hidden: I first thought the voice was just too slow, and only listening carefully showed that it was reading my English instructions aloud. The GPU problem had a clear error message, so it was easier to search for a fix.
 
 ## 4. A suggested practice that helped, and one that did not
 **Helped: a JSON contract between stages + logging every call.**
@@ -45,7 +41,7 @@ Because every stage reads `storyboard.json` and every call lands in `runs.jsonl`
 **Did not beat my instinct: a reference sheet before keyframes, used for every shot.**
 Conditioning keyframes on the golden monastery reference made the exteriors match exactly (E3), but the reference *won over the prompt*: the "interior wall" came out as the outside of the church, the manuscript close-up was placed outdoors, and the sunset took the reference's morning light. Text-only prompts gave the right interior, close-up and sunset. The rule I ended with: use references only for shots with the same framing and light (s01–s03, s08). The reference itself also needed help: a generic "round church" prompt gave a village hut on 4/4 images until I named the defining features (cross finial, veranda ring, stone wall: 4/4, E3b).
 
-**[YOUR WORDS]** Say in a sentence whether this matches your experience, or choose a different pair.
+This matches my experience: the storyboard file let me change one shot without breaking the others, but using the same reference image for every shot made indoor and sunset scenes look like the morning outside view, so I only used it where the framing and light matched.
 
 ## 5. Ceiling work
 Honest answer: I did not complete a full ceiling direction. What I did beyond the floor:
@@ -62,4 +58,4 @@ Honest answer: I did not complete a full ceiling direction. What I did beyond th
 ## 7. How I worked with the coding agent
 The stage scripts were written with **Claude Code (Claude Opus 5.5)**. I designed the story, audience and storyboard, chose between candidates (score 302, prompts), ran the Kaggle GPU notebooks, listened and watched, and ran the user tests; the agent wrote and fixed code from what I reported. Two cases where the human step mattered: the agent's transcription check missed the spoken English that I heard (F15), and an agent suggestion (`make offline`) overwrote real outputs with placeholders, which I restored with git.
 
-**[YOUR WORDS]** One sentence on what you would do differently next time when working with an agent.
+Next time I would test one item before running a whole batch, and check what a command does before running it, because one command replaced my real files with placeholders and I had to restore them with git.
