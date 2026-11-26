@@ -77,13 +77,14 @@ _Date / where:_ before the narration fixes of 25 Nov; exact time and listening s
 **Storyboard changes (commit / diff):** `521533c` (empty TTS style, pause cap, rewritten lines), `f538222` (s02, s03), `2c432f6` (s06). See `git show <commit> -- storyboard.json`.
 
 ## User test 2 — near-final cut
-_Date / where:_ · _People (≥3):_
+_Date / where:_ 26 Nov 2026, near-final film (4 Wan shots + 5 Ken Burns, s03 person removed, F20); viewing device not recorded · _People:_ 3 friends (2 understand Amharic, 1 relied on the English subtitles)
 
 | Person (role) | What they said / where they reacted | What we change |
 |---|---|---|
-| | | |
-| | | |
-| | | |
+| Friend who speaks Amharic | "Overall, I really enjoyed the video… the Amharic narration is much better now. However, a few transitions could be smoother, and some scenes could use a little more time." | **Changed:** every cut now dips 0.25 s through black instead of a hard cut (`shots.DIP_S`); shot lengths unchanged so narration stays in sync. **Not changed:** shot length: the film is 80.8 s against the 60–90 s limit and each shot is timed to its narration line (see next steps) |
+| Friend (reads the English subtitles) | "I noticed English subtitles appearing in a few places, but I wasn't sure whether they were part of the intended design. I also think the subtitles could be slightly larger." | **Changed:** subtitle size +20% (libass 9→11 in 9:16, 15→17 in 16:9). The English subtitles are intended (for viewers who don't speak Amharic) and run under every line |
+| Friend who understands Amharic | "I liked the storytelling and the historical atmosphere. Most of the subtitles were readable, but one or two scenes looked a little unusual. Overall, the video communicates the story nicely." | **Not changed yet:** the scenes were not named. The likely candidates are AI artefacts in the generated pictures (cf. the invented person removed from s03, F20) |
 
-**Insights:**
-**Changes made:**
+**Insights:** compared with test 1, nobody mentioned length or spoken English, and the Amharic narration was called "much better now", so the round-1 fixes (F14, F15, rewritten lines) held. Before this round, a full transcription of the final soundtrack (Gemini, 26 Nov) confirmed 16 Amharic sentences and **no spoken English**; the remaining "English" comment was about the subtitles, which are by design. What is left is finish: cuts, subtitle size, and the realism of a few AI scenes.
+**Changes made:** soft dips at every cut (`STAGE_VERSION["segments"]` 3) and larger subtitles (`STAGE_VERSION["assemble"]` 6); both films rebuilt.
+**Next steps (not done, with reason):** longer scenes would mean slower narration or shots past the line ends, against a hard 90 s limit; ask Person 3 which scenes looked unusual, and regenerate those keyframes (cheap: FLUX on Cloudflare) rather than Wan clips (~25 GPU min each).

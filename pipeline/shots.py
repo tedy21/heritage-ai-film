@@ -33,7 +33,9 @@ _MOVES = {
     "static":    ("1.04", "iw/2-(iw/zoom/2)", "ih/2-(ih/zoom/2)"),
 }
 
-GRADE_RECON = "eq=saturation=0.55:contrast=1.05,colorbalance=rs=0.10:gs=0.03:bs=-0.10,vignette=PI/4.5"
+DIP_S = 0.25  # fade to/from black at every cut
+
+GRADE_RECON ="eq=saturation=0.55:contrast=1.05,colorbalance=rs=0.10:gs=0.03:bs=-0.10,vignette=PI/4.5"
 
 
 def fq(p) -> str:
@@ -68,6 +70,9 @@ def _overlays(sb: dict, shot: dict, w: int, h: int, length: float) -> list[str]:
         f.append(f"drawtext=fontfile={fq(FONT_LATIN)}:textfile={fq(tdir / 'title_en.txt')}:fontsize={small}:"
                  f"fontcolor=white:alpha='{alpha}':shadowcolor=black@0.6:shadowx=2:shadowy=2:"
                  f"x=(w-tw)/2:y=h*0.40+{int(big * 0.35)}")
+    # soft cut (user test 2: "transitions could be smoother"): a short dip through
+    # black at both ends; segment length is unchanged, so narration stays in sync
+    f.append(f"fade=t=in:st=0:d={DIP_S},fade=t=out:st={length - DIP_S:.3f}:d={DIP_S}")
     return f
 
 

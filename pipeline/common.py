@@ -29,9 +29,9 @@ STAGE_VERSION = {
     "keyframes": 1,
     "narration": 1,
     "music": 1,
-    "segments": 2,  # v2: reconstruction tag optional (meta.reconstruction_tag)
+    "segments": 3,  # v3: 0.25 s dip at every cut (user test 2); v2: reconstruction tag optional
     "subtitles": 1,
-    "assemble": 5,  # v5: -3.5 dBFS limiter (chosen score overshot more in AAC, F18)
+    "assemble": 6,  # v6: larger subtitles (user test 2); v5: -3.5 dBFS limiter (F18)
 }
 
 

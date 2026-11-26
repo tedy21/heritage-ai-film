@@ -93,10 +93,11 @@ def build_mix(sb: dict, tl: dict, music: Path) -> Path:
 
 
 def _sub_style(aspect: str) -> str:
-    # libass scales SRT styles against a 288px-high canvas
+    # libass scales SRT styles against a 288px-high canvas.
+    # Sizes raised ~20% after user test 2 ("subtitles could be slightly larger"): 9->11, 15->17
     if aspect == "9x16":
-        return "FontName=Noto Sans,FontSize=9,Outline=1,Shadow=0,BorderStyle=1,MarginV=62,MarginL=20,MarginR=20"
-    return "FontName=Noto Sans,FontSize=15,Outline=1,Shadow=0,BorderStyle=1,MarginV=16"
+        return "FontName=Noto Sans,FontSize=11,Outline=1,Shadow=0,BorderStyle=1,MarginV=62,MarginL=14,MarginR=14"
+    return "FontName=Noto Sans,FontSize=17,Outline=1,Shadow=0,BorderStyle=1,MarginV=16"
 
 
 def export(sb: dict, tl: dict, aspect: str, mix: Path, srt: Path, segments: list[Path], name: str) -> Path:
