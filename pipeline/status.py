@@ -2,7 +2,7 @@
 
 Each check maps to a graded criterion and looks for *written evidence* (the
 graders read code, text and logs, not media). Run it before every commit and
-before submitting; PLAN.md says what to do about anything not green.
+before submitting; each line says what to do about anything not green.
 
   ✅ done   ⚠️ partly / needs a human step   ❌ missing
 """
@@ -147,7 +147,7 @@ def main() -> None:
             cur = crit
         print(f"  {st} {what.ljust(width)}" + (f"  → {todo}" if todo and st != OK else ""))
     n_ok = sum(r[1] == OK for r in res)
-    print(f"\n{n_ok}/{len(res)} checks green. See PLAN.md for the order of the remaining work.")
+    print(f"\n{n_ok}/{len(res)} checks green.")
 
 
 if __name__ == "__main__":

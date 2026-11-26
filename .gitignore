@@ -10,3 +10,6 @@ outputs/segments/
 
 # upload bundle for the Kaggle GPU notebook (make kaggle-input)
 kaggle_in.zip
+
+# personal work plan / tracker, kept local only
+PLAN.md

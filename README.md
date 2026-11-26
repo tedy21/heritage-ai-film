@@ -14,7 +14,7 @@ Requirements: Python 3.11+, FFmpeg with libass (`apt install ffmpeg`), and the N
 | Command | What it does |
 |---|---|
 | `make film` | Whole pipeline → both aspect ratios; re-runs rebuild only what changed |
-| `make status` | **Readiness check** against every rubric criterion (see [PLAN.md](PLAN.md)) |
+| `make status` | **Readiness check** against every rubric criterion |
 | `make validate` | Storyboard schema + the brief's rules (`STRICT=1` fails on warnings) |
 | `make radio` | Radio cut: narration + music on black, with the title and subtitles |
 | `make script` | Back-translate the Amharic and check it against the English subtitles |
@@ -39,6 +39,6 @@ GPU work runs in notebooks because the free GPU lives on Kaggle. Their outputs a
 $0 on free tiers. The measured latency per stage and the list-price equivalent are in [COSTS.md](COSTS.md).
 
 ## Documents
-[PLAN.md](PLAN.md) (work plan, rules, tracker) · [DESIGN.md](DESIGN.md) (audience, intent, user tests) · [ARCHITECTURE.md](ARCHITECTURE.md) (stages, contracts, caching, failures) · [EXPERIMENTS.md](EXPERIMENTS.md) · [FAILURES.md](FAILURES.md) · [COSTS.md](COSTS.md) · [ETHICS.md](ETHICS.md) (consent, licences, labelling)
+[DESIGN.md](DESIGN.md) (audience, intent, user tests) · [ARCHITECTURE.md](ARCHITECTURE.md) (stages, contracts, caching, failures) · [EXPERIMENTS.md](EXPERIMENTS.md) · [FAILURES.md](FAILURES.md) · [COSTS.md](COSTS.md) · [ETHICS.md](ETHICS.md) (consent, licences, labelling)
 
 **Made with AI.** Historical scenes are AI reconstructions, not photographs. See [ETHICS.md](ETHICS.md).
