@@ -5,12 +5,11 @@
 > **[YOUR WORDS — remove this note when done]** Everything below is drafted from the repository's logs. Read each section, change anything that is not how *you* saw it, and rewrite the marked parts in your own voice. The interview will ask about these points.
 
 ## 1. What I set out to make, and for whom
-**Audience:** young Ethiopians and families at home and in the diaspora, watching on a phone, often with the sound low; secondly, international viewers curious about Ethiopian heritage.
-**Intent:** that by the end they see Lake Tana's island monasteries not as a tourist view but as *their* inheritance to know, honour and protect (DESIGN.md, written before anything was generated).
+I wanted to make a short film about Lake Tana. For me, it is not just a beautiful lake: it is a place full of history, faith and memories that have lasted for generations. I kept asking myself one question: how many stories does this lake hold? So I gave myself one goal. When the film ends, I want people to feel that Lake Tana is part of our memory, and that protecting it is now our part.
+
+**Audience:** young Ethiopians and families at home and in the diaspora, watching on a phone, often with the sound low; secondly, international viewers curious about Ethiopian heritage. I wrote the audience and this goal in DESIGN.md before generating anything.
 
 The film moves from the present-day lake (sunrise, tankwa paddlers, a monastery among trees) to what the monasteries hold (wall paintings, manuscripts), then to two AI reconstructions (a scribe working by taper light; monks carrying books to an island in hard times), and back to the present: "today this trust is in our hands".
-
-**Why it matters to me:** I love the title "Tana: A Story That Outlasted the Waves" because it makes me wonder how many stories this beautiful lake holds. To me, Lake Tana is not just a lake; it is a place full of history, memories, culture, and traditions that have survived for generations. I find that really special, and I feel excited to explore these stories and share them with others through this film.
 
 **Pipeline:** `storyboard.json` is the contract for every stage: Gemini TTS narration (measured lengths set shot lengths) → FLUX.2 klein keyframes on Cloudflare, conditioned on a reference sheet → Wan 2.2 TI2V-5B image-to-video on a Kaggle T4 for 4 shots, a Ken Burns move for the other 5 → ACE-Step 1.5 score → FFmpeg assembly (ducking, two-pass loudnorm to −15.1 LUFS / −2.7 dBTP, burned-in subtitles, AI end card). Every model call is a line in `runs.jsonl`; outputs are cached by content hash, so a change regenerates only what it touches.
 

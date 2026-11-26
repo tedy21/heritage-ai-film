@@ -5,8 +5,8 @@ Everything runs on free tiers, so the actual cost is **$0**. The table below com
 ## Free-tier limits found (fill in from the smoke test and dashboards)
 | Provider | What I found on 25 Nov 2026 | Hit it? |
 |---|---|---|
-| Gemini API (text + TTS) | Smoke test 25 Nov: TTS `gemini-3.8-flash-tts` 3.2–4.2 s per short line; text `gemini-3.8-flash` 503 "high demand" (twice), `gemini-3.5-flash` 2.0 s. Listing models took 30 s once. _TODO: RPM/RPD from AI Studio_ | 503 overload (not quota) |
-| Cloudflare Workers AI | Smoke test 25 Nov (512×512): FLUX.1 schnell 2.3 s, FLUX.2 klein 4B 5.3–9.2 s. _TODO: daily free neurons used_ | No |
+| Gemini API (text + TTS) | Smoke test 25 Nov: TTS `gemini-3.8-flash-tts` 3.2–4.2 s per short line; text `gemini-3.8-flash` 503 "high demand" (twice), `gemini-3.5-flash` 2.0 s. Listing models took 30 s once. **TTS: 10 requests per model per day**, found when the radio cut hit it (F13); the per-minute limit was never reached | Yes: 503 overload (F12) and the TTS daily quota (F13) |
+| Cloudflare Workers AI | Smoke test 25 Nov (512×512): FLUX.1 schnell 2.3 s, FLUX.2 klein 4B 5.3–9.2 s. Whole project: 12 reference + 29 keyframe + smoke calls, no limit reached; daily neuron use not checked on the dashboard | No |
 | Kaggle GPU | 30 h/week shown; 00:35 used after ACE-Step setup + 2 runs. Working disk 19.5 GiB (ACE-Step env + models filled 17.2 GiB). 26 Nov: **04:33** of the weekly quota used after the Wan run (session time incl. model download, OOM restarts and idle time, not only the 122.7 min of rendering); 15 GB T4 memory too small for model offload (F19) | Disk nearly; GPU memory yes (F19) |
 
 ## Per-stage measurements
