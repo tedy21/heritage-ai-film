@@ -31,7 +31,7 @@ STAGE_VERSION = {
     "music": 1,
     "segments": 2,  # v2: reconstruction tag optional (meta.reconstruction_tag)
     "subtitles": 1,
-    "assemble": 3,  # v3: -3 dBFS limiter after loudnorm (AAC overshoot)
+    "assemble": 5,  # v5: -3.5 dBFS limiter (chosen score overshot more in AAC, F18)
 }
 
 

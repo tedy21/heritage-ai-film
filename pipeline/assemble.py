@@ -26,7 +26,7 @@ from .music import music_track
 from . import spotting
 
 TARGET_LUFS, TARGET_TP, TARGET_LRA = -14.0, -1.0, 11.0
-LIMIT_DB = -3.0  # sample ceiling before AAC; AAC adds ~1.2 dB overshoot (measured, F18)
+LIMIT_DB = -3.5  # sample ceiling before AAC; AAC overshoot measured at 1.2-2.4 dB, content-dependent (F18)
 LIMIT_LIN = round(10 ** (LIMIT_DB / 20), 4)
 
 

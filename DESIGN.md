@@ -44,7 +44,7 @@ _TODO (user, 2–3 sentences): your personal or family connection to Lake Tana. 
 ## Music spotting (after the radio cut gave real timing)
 Following the professional order: watch/listen to the cut, spot cues with timecodes, then choose and shape the score. The notes are generated from the measured narration (`make spotting` → `outputs/music/spotting_notes.md`):
 
-Film length 01:20.88 incl. 3.0s end card. Score: `temp pad (no score chosen yet)`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
+Film length 01:20.88 incl. 3.0s end card. Score: `outputs/music/candidates/cand_302.flac`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
 
 | Cue | In | Out | Length | Shots | Gain | What it should do |
 |---|---|---|---|---|---|---|

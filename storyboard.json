@@ -220,7 +220,7 @@
     "bpm": 66,
     "key": "D minor",
     "volume_db": -6,
-    "chosen": null,
+    "chosen": "outputs/music/candidates/cand_302.flac",
     "ducking": {
       "threshold": 0.02,
       "ratio": 6,
