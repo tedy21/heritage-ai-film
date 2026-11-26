@@ -22,8 +22,8 @@ _TODO (user, 2–3 sentences): your personal or family connection to Lake Tana. 
 5. Today that trust passes to us: to know, honour and protect it.
 
 ## Design decisions
-- **Present vs reconstruction is visible.** Historical scenes (s06, s07) get a warm desaturated grade, a vignette and an "AI reconstruction" tag. The brief asks viewers to tell real places from AI interpretation, and it is the honest choice for a documentary.
-- **No identifiable people.** Figures are seen from behind or far away. This avoids consent problems and face artefacts, and keeps the focus on the place.
+- **Present vs reconstruction is visible.** Historical scenes (s06, s07) get a warm desaturated grade and a vignette. An on-screen "AI reconstruction" tag was tried in the rough cut and turned off because it covered the picture; the end card says the film was made with AI.
+- **No real people.** All figures are synthetic and shown from behind, in profile or at a distance. This avoids consent problems and face artefacts, and keeps the focus on the place.
 - **No readable script in images.** Models garble Ge'ez letters, so manuscripts are shown as painted illuminations in soft focus. All words come from subtitles and titles added in code.
 - **Narration sets the timing.** Shot length = max(planned length, narration + breathing room).
 - **Centred composition, square keyframes.** One keyframe serves both 16:9 and 9:16 crops.
@@ -36,24 +36,33 @@ _TODO (user, 2–3 sentences): your personal or family connection to Lake Tana. 
 | s03 | present | Monastery revealed through trees | The turn: the landscape hides something deeper |
 | s04 | present | Painted church wall | Art as prayer and teaching |
 | s05 | present | Illuminated manuscript close-up | Preserved knowledge, made tactile |
-| s06 | reconstruction | Scribe by candlelight (from behind) | The human effort of the generations |
+| s06 | reconstruction | Scribe writing by the light of beeswax tapers (twaf) held by a helper | The human effort of the generations |
 | s07 | reconstruction | Books carried to an island at dusk | Protection through hardship = "the waves" |
-| s08 | present | Young woman before the paintings | Hand-over to today's youth (the audience) |
+| s08 | present | Elderly monk before the painted church | Hand-over from a living guardian to the audience |
 | s09 | present | Sunset over the lake | Echo of the opening; title line + call to action |
 
 ## Music spotting (after the radio cut gave real timing)
 Following the professional order: watch/listen to the cut, spot cues with timecodes, then choose and shape the score. The notes are generated from the measured narration (`make spotting` → `outputs/music/spotting_notes.md`):
 
-Film length 01:20.80 incl. 3.0s end card. Score: `temp pad (no score chosen yet)`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
+Film length 01:20.88 incl. 3.0s end card. Score: `temp pad (no score chosen yet)`, 66 BPM, D minor. Gain changes ramp over 1.5s; the score is also ducked under every narration line.
 
 | Cue | In | Out | Length | Shots | Gain | What it should do |
 |---|---|---|---|---|---|---|
-| m1 | 00:00.00 | 00:16.00 | 16.0s | s01–s02 | -3 dB | Open quietly with the dawn; sparse plucked notes, sense of space. |
-| m2 | 00:16.00 | 00:40.92 | 24.9s | s03–s05 | +0 dB | Discovery and wonder as the monasteries appear; strings pad enters. |
-| m3 | 00:40.92 | 00:58.92 | 18.0s | s06–s07 | -4 dB | Weight of history and hardship; lower, darker, slower. |
-| m4 | 00:58.92 | 01:16.92 | 18.0s | s08–s09 | +2 dB | Hope and handover; the opening motif returns, warmer, then resolves. |
+| m1 | 00:00.00 | 00:16.92 | 16.9s | s01–s02 | -3 dB | Open quietly with the dawn; sparse plucked notes, sense of space. |
+| m2 | 00:16.92 | 00:41.88 | 25.0s | s03–s05 | +0 dB | Discovery and wonder as the monasteries appear; strings pad enters. |
+| m3 | 00:41.88 | 00:59.88 | 18.0s | s06–s07 | -4 dB | Weight of history and hardship; lower, darker, slower. |
+| m4 | 00:59.88 | 01:17.88 | 18.0s | s08–s09 | +2 dB | Hope and handover; the opening motif returns, warmer, then resolves. |
 
 The chosen ACE-Step track is shaped per cue (`gain_db`, 1.5 s ramps) and ducked under the voice. Candidates are auditioned **under the narration** (`make audition`), not on their own.
+
+## Viewer comments on the stills (received 26 Nov 2026)
+| Comment | Change (storyboard prompts) |
+|---|---|
+| User 1: replace the candle with the traditional taper (twaf) used in the Ethiopian Orthodox church (reference photo supplied) | s06: a helper holds two joined beeswax tapers with one flame; "candlelight" → "firelight"; camera `pull_out` → `static` so the taper stays visible in 9:16 |
+| User 2: make the people's faces Ethiopian | s06 scribe and s07 monks described explicitly; s04 and s05 painted saints in the Gondarine style; s07 now uses a papyrus tankwa |
+| Viewer comment: close with an ending and a thank-you | End card says "The End", "Thank you for watching" and "Made with AI"; technical credits and model names were removed |
+
+Prompt lesson: the word "twaf" alone gave ordinary separate candles; describing the object's shape (one grooved stick, "two sticks fused together") gave the joined tapers.
 
 ## User test 1 — radio cut (narration + temp music on black)
 _Date / where:_ · _People (≥3, from the audience; first names or roles only):_

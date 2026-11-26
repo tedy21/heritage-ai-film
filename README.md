@@ -31,7 +31,7 @@ Requirements: Python 3.11+, FFmpeg with libass (`apt install ffmpeg`), and the N
 2. **Keyframes:** FLUX on Cloudflare Workers AI. A golden reference sheet comes first, then every keyframe is conditioned on it with a shared style block.
 3. **Moving shots:** Wan 2.2 TI2V-5B image-to-video on a free Kaggle T4 ([notebook](notebooks/wan22_i2v_kaggle.py)), with a Ken Burns move over the keyframe as the fallback.
 4. **Music:** ACE-Step 1.5 instrumental candidates on Kaggle ([notebook](notebooks/acestep_kaggle.py)); one is chosen by ear under the narration.
-5. **Assembly (FFmpeg):** ducking with sidechain compression, two-pass loudness normalisation to −14 LUFS, burned-in English subtitles, "AI reconstruction" tags on historical scenes, the AI end card, and both aspect ratios.
+5. **Assembly (FFmpeg):** ducking with sidechain compression, two-pass loudness normalisation to −14 LUFS, burned-in English subtitles, a warm grade and vignette on historical scenes, the end card that says it was made with AI, and both aspect ratios.
 
 GPU work runs in notebooks because the free GPU lives on Kaggle. Their outputs are committed, so `make film` from a clean clone rebuilds the film without a GPU.
 

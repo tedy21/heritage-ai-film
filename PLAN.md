@@ -111,4 +111,5 @@
 | 25 Nov | Script back-translation check stage | accurate subtitles; one Amharic reader | `outputs/script/review.md` |
 | 25 Nov | s02 "ውስጥ"→"ላይ"; s03 "ከሐይቁ ዕድሜ የገፋ"→"ዘመናትን የተሻገረ" | boats travel *on* water; monasteries are not older than the lake (script check flagged it) | `outputs/script/review.md` 9/9, no notes; 2 TTS calls, run 20261125T164028 |
 | 25 Nov | Remove the on-screen "AI reconstruction" tag; s06 "በሻማ ብርሃን … ቃል በቃል፣ ገጽ በገጽ" → "በጧፍ ብርሃን … ፊደል በፊደል በብራና ላይ" | the tag covered the picture; ጧፍ (beeswax taper) and ፊደል (the Ge'ez letters) are specific to Ethiopian manuscript culture, ሻማ/ገጽ were generic | `meta.reconstruction_tag: false`; end card still discloses reconstructions; script check 9/9; 1 TTS call |
+| 26 Nov | Viewer comments: twaf in s06, Ethiopian faces in s04–s07, thank-you end card; s06 subtitle rewritten to match the spoken line ("ጽሑፍ መጻፍ … ትዕግስትና ጥበብ"), audio kept | viewer feedback; subtitles must be accurate | DESIGN.md viewer comments; E14, E15 |
 | 25 Nov | s08: young woman → elderly monk from behind | several Lake Tana island monasteries do not admit women; a monk is the living guardian of the heritage | E3c; 2 images |

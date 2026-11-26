@@ -1,58 +1,58 @@
 {
-  "key": "7ec6750b55d4bb0f",
+  "key": "cf7c8042cb532082",
   "model": "gemini-3.5-flash",
   "rows": [
     {
       "id": "s01",
-      "back_translation": "As dawn breaks, Lake Tana awakens in silence. Ethiopia's largest lake, the source of the Nile.",
+      "back_translation": "When dawn breaks, Lake Tana awakens in silence. Ethiopia's largest lake, the source of the Abay (Nile).",
       "match": true,
       "note": ""
     },
     {
       "id": "s02",
-      "back_translation": "For ages, tankwa paddlers have lived traveling on this water. The lake is both their road and their dwelling.",
+      "back_translation": "For ages, tankwa paddlers have lived traveling on this water. The lake is both their road and their dwelling place.",
       "match": true,
       "note": ""
     },
     {
       "id": "s03",
-      "back_translation": "But amidst the forests of the islands, ancient monasteries with a history spanning ages are hidden.",
+      "back_translation": "But amidst the forest of the islands, ancient monasteries with a history spanning centuries are hidden.",
       "match": true,
       "note": ""
     },
     {
       "id": "s04",
-      "back_translation": "On their walls, saints are seen in colorful paintings. Each painting is both a prayer and a lesson.",
+      "back_translation": "On their walls, saints appear as brightly colored paintings. Every painting is both a prayer and a lesson.",
       "match": true,
       "note": ""
     },
     {
       "id": "s05",
-      "back_translation": "Books written on parchment have preserved ancient knowledge and faith for ages.",
+      "back_translation": "Books written on parchment have preserved ancient knowledge and faith for centuries.",
       "match": true,
       "note": ""
     },
     {
       "id": "s06",
-      "back_translation": "By taper light, scribes wrote letter by letter on parchment. Their patience is visible even today.",
+      "back_translation": "Writing text on parchment by candle light shows the patience and wisdom of ancient scribes. It is a work that amazes even to this day.",
       "match": true,
       "note": ""
     },
     {
       "id": "s07",
-      "back_translation": "In times of war and hardship, these relics were preserved inside the islands. Even the waves could not destroy them.",
+      "back_translation": "In times of war and hardship, these heritage relics were preserved inside the islands. Even the storm could not destroy them.",
       "match": true,
       "note": ""
     },
     {
       "id": "s08",
-      "back_translation": "Today this trust is in our hands. Knowing, honoring, and protecting it is our responsibility.",
+      "back_translation": "Today this trust is in our hands. Knowing, honoring, and protecting it is our share.",
       "match": true,
       "note": ""
     },
     {
       "id": "s09",
-      "back_translation": "Tana is not just a beautiful lake. It is a history not destroyed by waves, so let us protect it for the coming generation.",
+      "back_translation": "Tana is not just a beautiful lake. Since it is a history not destroyed by the storm, let us protect it for the coming generation.",
       "match": true,
       "note": ""
     }

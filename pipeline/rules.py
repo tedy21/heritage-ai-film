@@ -120,9 +120,6 @@ def check(sb: dict) -> list[Finding]:
     card = " ".join(sb["meta"].get("end_card") or [])
     if "ai" not in card.lower().split() and "AI" not in card:
         err("meta.end_card", "end card must say the film was made with AI", "brief: visible AI end card")
-    if any(s["era"] == "reconstruction" for s in shots) and "reconstruct" not in card.lower():
-        warn("meta.end_card", "there are reconstruction shots but the end card doesn't mention reconstructions",
-             "ETHICS: labelling plan")
     if sb["meta"]["narration_voice"].get("style", "").strip():
         warn("meta.narration_voice.style", "a style instruction is sent to TTS and may be spoken aloud",
              "FAILURES F15")

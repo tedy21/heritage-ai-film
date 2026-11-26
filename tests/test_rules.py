@@ -44,6 +44,10 @@ class RuleTests(unittest.TestCase):
     def test_end_card_must_mention_ai(self):
         self.assertTrue(has(findings(lambda sb: sb["meta"].update(end_card=["Thank you"])), "ERROR", "made with AI"))
 
+    def test_end_card_thank_you_with_ai_label_passes(self):
+        card = ["The End", "Thank you for watching", "Made with AI"]
+        self.assertFalse(has(findings(lambda sb: sb["meta"].update(end_card=card)), "ERROR", "made with AI"))
+
     def test_music_cues_gap(self):
         self.assertTrue(has(findings(lambda sb: sb["music"]["cues"].pop(1)), "ERROR", "cover every shot exactly once"))
 

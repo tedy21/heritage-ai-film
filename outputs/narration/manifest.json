@@ -25,8 +25,8 @@
     "model": "gemini-3.8-flash-tts"
   },
   "s06": {
-    "path": "outputs/narration/s06-bd0059ab605a6cb4.wav",
-    "duration_s": 7.431,
+    "path": "outputs/narration/s06-1d5093441aacf3dc.wav",
+    "duration_s": 7.201,
     "model": "gemini-3.8-flash-tts"
   },
   "s07": {

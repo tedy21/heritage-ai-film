@@ -7,7 +7,7 @@
     "audience": "Ethiopian youth and families (at home and in the diaspora) watching on phones via Telegram, TikTok and YouTube, plus international viewers curious about Ethiopian heritage.",
     "intent": "At the end the viewer should feel that Lake Tana is not just a beautiful landscape but a living part of Ethiopia's memory, and that protecting it is now their part.",
     "style_block": "photorealistic cinematic documentary still, natural light, soft atmospheric haze, 35mm film look, gentle film grain, muted earthy palette of ochre, green and lake blue, northern Ethiopian highlands, subject centred in frame, no text, no letters, no watermark",
-    "reconstruction_block": "respectful historical reconstruction set centuries ago, warm candlelight, painterly cinematic lighting, deep shadows, gentle film grain, subject centred in frame, no text, no letters, no watermark",
+    "reconstruction_block": "respectful historical reconstruction set centuries ago, warm firelight, painterly cinematic lighting, deep shadows, gentle film grain, subject centred in frame, no text, no letters, no watermark",
     "negative_block": "text, letters, captions, watermark, logo, modern clothing brands, plastic, distorted hands, extra fingers, deformed face",
     "fps": 24,
     "reconstruction_tag": false,
@@ -37,10 +37,9 @@
       "batch_min": 3
     },
     "end_card": [
-      "Made with AI",
-      "Images: FLUX (Cloudflare Workers AI) · Motion: Wan 2.2",
-      "Narration: Gemini TTS (synthetic voice) · Score: ACE-Step",
-      "Historical scenes are AI reconstructions, not photographs."
+      "The End",
+      "Thank you for watching",
+      "Made with AI"
     ]
   },
   "references": [
@@ -123,7 +122,7 @@
       "era": "present",
       "shot_size": "medium",
       "duration_s": 8,
-      "image_prompt": "inside a dim round Ethiopian Orthodox church, the curved interior wall covered floor to ceiling in bright traditional religious paintings of saints with large eyes, warm daylight falling through an open wooden door, no people",
+      "image_prompt": "inside a dim round Ethiopian Orthodox church, the curved interior wall covered floor to ceiling in flat two-dimensional Ethiopian Gondarine folk icon murals, every saint and angel with dark brown skin, a wide round face, huge wide-open almond eyes with big black pupils, thick black rounded hair, bold black outlines, flat bright red, yellow and green colours, no shading, warm daylight falling through an open wooden door, no living people",
       "refs": [],
       "motion_prompt": "slow pan across the painted wall, dust floating in the light, camera smooth",
       "camera": "pan_left",
@@ -139,7 +138,7 @@
       "era": "present",
       "shot_size": "close_up",
       "duration_s": 8,
-      "image_prompt": "extreme close-up filling the frame of an open ancient parchment manuscript on a wooden stand indoors, a colourful painted illumination of a saint, worn edges, shallow depth of field, writing blurred and out of focus",
+      "image_prompt": "extreme close-up filling the frame of a thick ancient Ethiopian Orthodox parchment manuscript book lying open on a wooden stand in a dim stone room, one page painted with a small-framed traditional Ethiopian Gondarine illumination of a saint with dark brown skin, round face, large almond eyes and black rounded hair, faded natural pigments, cracked paint, the facing page with soft blurred lines of writing out of focus, yellowed worn vellum, shallow depth of field",
       "refs": [],
       "motion_prompt": "very slow push in, candle light flickers softly on the page",
       "camera": "push_in",
@@ -155,12 +154,12 @@
       "era": "reconstruction",
       "shot_size": "medium",
       "duration_s": 9,
-      "image_prompt": "an Ethiopian scribe seen strictly from behind, face not visible, wrapped in a traditional white cotton gabi shawl, bent over a parchment by candlelight inside a stone room, reed pen and ink horn beside him",
+      "image_prompt": "an Ethiopian scribe with dark brown skin, short black curly hair and a black beard, seen from behind and slightly to the side, wrapped in a traditional white cotton gabi shawl, bent over a parchment inside a dark stone room, writing with a reed pen; in the exact centre of the frame the hand of a helper holds upright one single straight orange-brown beeswax taper with a deep groove down its whole length like two sticks fused together, its large bright flame in the middle of the picture with empty dark space above it, the scribe on the left side, the only light in the room",
       "refs": [],
       "motion_prompt": "candle flame flickers, the scribe's hand moves slowly, camera static",
-      "camera": "pull_out",
+      "camera": "static",
       "narration": "በጧፍ ብርሃን ብራና ላይ ጽሑፍ መጻፍ የጥንት ጸሐፊዎችን ትዕግስትና ጥበብ ያሳያል። ዛሬም ድረስ የሚያስደንቅ ሥራ ነው።",
-      "subtitle_en": "By the light of beeswax tapers, scribes wrote on parchment, letter by letter. Their patience can still be seen today.",
+      "subtitle_en": "By taper light, writing on parchment shows the ancient scribes' patience and wisdom. It still amazes us today.",
       "seed": 2006,
       "render": "kenburns",
       "music_cue": "m3"
@@ -171,7 +170,7 @@
       "era": "reconstruction",
       "shot_size": "wide",
       "duration_s": 9,
-      "image_prompt": "at dusk, robed figures seen from a distance carefully carry wrapped bundles of books from a papyrus boat onto a forested island shore, stormy sky over the lake",
+      "image_prompt": "extreme wide shot at dusk, a forested Lake Tana island shore under a stormy sky, far away and small in the frame a line of Ethiopian Orthodox monks with dark brown skin, white cotton shawls, yellow-ochre robes and small round caps walk up from the water onto the land carrying cloth-wrapped bundles, a papyrus reed tankwa boat pulled up on the shore behind them",
       "refs": [],
       "motion_prompt": "waves lap against the shore, clouds drift, figures walk slowly, camera static",
       "camera": "pan_left",
