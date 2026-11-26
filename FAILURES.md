@@ -26,7 +26,7 @@ Format: **symptom → cause → what I tried → fix / workaround → evidence**
 ### F6. Wan 2.2 TI2V-5B image-to-video has no documented diffusers recipe (25 Nov)
 - **Symptom (docs):** the HF repo `Wan-AI/Wan2.2-TI2V-5B-Diffusers` is a `WanPipeline` whose documented call has no `image=` argument. `WanImageToVideoPipeline` is documented only for Wan 2.1 14B.
 - **What I did:** the notebook tries `WanImageToVideoPipeline` first, prints whether the loaded pipeline accepts `image=`, and records the pipeline used in every timings line.
-- **Result:** _TODO after the first Kaggle run_
+- **Result (26 Nov run):** `WanImageToVideoPipeline` loaded with the TI2V-5B weights and accepted `image=`; all 13 records in `outputs/clips/timings.json` say `"pipeline": "WanImageToVideoPipeline"`, and each clip starts from its keyframe. The first runs then hit a separate problem, GPU memory (F19).
 
 <!-- Add new entries as they happen: quota (Cloudflare daily neurons, Gemini RPD), OOM on T4, fp16 NaNs, Amharic pronunciation errors, identity/consistency drift, ACE-Step on T4… -->
 

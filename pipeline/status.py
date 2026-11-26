@@ -67,7 +67,9 @@ def checks() -> list[tuple[str, str, str, str]]:
     films = [OUT / "final" / "tana_16x9.mp4", OUT / "final" / "tana_9x16.mp4"]
     add(c, OK if all(f.exists() for f in films) else MISS, "`make film` has produced both aspect ratios",
         "generate keyframes, then `make film`")
-    add(c, PART, "clean-clone run verified", "Step 12: git clone into a temp folder, add .env, `make film`")
+    verified = "Clean-clone check" in _read("README.md")
+    add(c, OK if verified else PART, "clean-clone run verified",
+        "git clone into a temp folder, add .env, `make film`, then record the result in README.md")
 
     # --- Documentation (10)
     c = "Docs (10)"

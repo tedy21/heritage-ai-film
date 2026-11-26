@@ -35,6 +35,8 @@ Requirements: Python 3.11+, FFmpeg with libass (`apt install ffmpeg`), and the N
 
 GPU work runs in notebooks because the free GPU lives on Kaggle. Their outputs are committed, so `make film` from a clean clone rebuilds the film without a GPU.
 
+**Clean-clone check (26 Nov 2026):** fresh `git clone` of `main` (6303334) into a temp folder, `.env` added, `make film` → exit 0 in 2 min 9 s with **0 model calls** (narration, keyframes, clips and score all served from the committed outputs; 20 segments re-rendered by FFmpeg). Deleting `outputs/final/*.mp4` and running again re-exported both films: 80.8 s, −15.1 LUFS, −2.7 dBTP, the same as the committed files.
+
 ## What it costs
 $0 on free tiers. The measured latency per stage and the list-price equivalent are in [COSTS.md](COSTS.md).
 
